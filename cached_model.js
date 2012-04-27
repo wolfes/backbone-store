@@ -8,7 +8,7 @@ var update_fn = function(m) {
 };
 
 var destroy_fn = function(m) {
-    // TODO: destroy model here
+    localStorage.removeItem(m.get("cache_id"));
 };
 
 
