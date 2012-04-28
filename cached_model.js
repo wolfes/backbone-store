@@ -25,5 +25,8 @@ var CachedModel = Backbone.Model.extend({
         // Attach the listener for persisting on modify
         this.on("change", function() {update_fn(this)});
         this.on("destroy", function() {destroy_fn(this)});
+
+        // After initialization, save in cache
+        update_fn(this);
     },
 });
