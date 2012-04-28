@@ -13,20 +13,26 @@ var destroy_fn = function(m) {
 
 
 // Constructor for a CachedModel object
-// TODO: take an ID instead of generating it
-// TODO: make sure our initialize always gets called, even if overridden by
-// the user's code
-//   Backbone has some sort of preinitialization: take a look
 var CachedModel = Backbone.Model.extend({
-    initialize: function() {
-        // Set a cache ID for this new object
-        this.set({cache_id: createGUID()});
+    constructor: function(cache_id) {
+        console.debug("Entering CachedModel.constructor");
 
-        // Attach the listener for persisting on modify
+        // Invoke Model's own constructor first
+        Backbone.Model.prototype.constructor.apply(this);
+
+        if (cache_id) {
+            this.set({cache_id: cache_id});
+        } else {
+            this.set({cache_id: createGUID()});
+        }
+
+        // Attach listeners for persisting and destroying
         this.on("change", function() {update_fn(this)});
         this.on("destroy", function() {destroy_fn(this)});
 
-        // After initialization, save in cache
+        // Save in cache
         update_fn(this);
+
+        console.debug("Exiting CachedModel.constructor");
     },
 });
