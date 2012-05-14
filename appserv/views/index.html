@@ -11,6 +11,13 @@
 <script src="/javascripts/notes_demo.js"></script>
 
 <script src="/javascripts/ajax.js"></script>
+<script>
+  // Global socket for reaching server.
+  console.log(window.location.hostname);
+  socket = io.connect(window.location.hostname); //'http://localhost'
+  console.log('socket setup');
+</script>
+
 
 <!--<script>
 // Example usage: Pass function that takes data to ajax.getSomething
