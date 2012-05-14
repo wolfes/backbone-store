@@ -29,7 +29,9 @@ app.configure('production', function(){
 });
 
 // Routes
-app.get('/', routes.index);
+app.get('/', function(req, res) {
+  res.sendfile(__dirname + '/views/index.html');
+});
 
 app.get('/data/docs', function(req, res) {
   res.write(JSON.stringify(doc.allDocs));
