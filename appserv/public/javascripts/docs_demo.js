@@ -45,7 +45,7 @@ S.make.NoteView = Backbone.View.extend({
 
 S.make.Docs = Backbone.Collection.extend({
   storeid: 'docs',
-  model: S.make.Note,
+  model: S.make.Doc,
   initialize: function() {
     this.on('add', this.addModel);
   },
@@ -60,14 +60,12 @@ S.make.Docs = Backbone.Collection.extend({
 });
 
 
-
-
 $(document).ready(function() {
   var local_start = Date.now();
   
   //TODO: Load docs from local storage
   S.set.Docs = new S.make.Docs();
-  S.set.Docs.loadFromStore();
+  //S.set.Docs.loadFromStore();
   
   var local_end = Date.now();
   console.log("Time it took to load from local storage: " + (local_end - local_start));
@@ -78,7 +76,7 @@ $(document).ready(function() {
     //console.log(docs);
     // Put these docs from server into collection.
     S.set.Docs.add(docs);
-    S.set.Docs.saveToStore();
+    //S.set.Docs.saveToStore();
   });
   var server_end = Date.now();
   console.log("Time it took to load from server: " + (server_end - server_start));

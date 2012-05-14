@@ -21,7 +21,7 @@ S.make.Note = Backbone.Model.extend({
   initialize: function(data) {
     this.set('noteid', data.noteid);
     this.set('title', data.title);
-    this.set('content', data.content);
+    this.set('contents', data.contents);
   }
 });
 
@@ -32,9 +32,9 @@ S.make.NoteView = Backbone.View.extend({
   },
   render: function() {
     var box = $("<div> note " + 
-		this.model.get('noteid') + 'has title: ' +
-		this.model.get('title') + 'has content: ' +
-		this.model.get('content') + '.' +
+		this.model.get('noteid') + ' has title: ' +
+		this.model.get('title') + ' has content: ' +
+		this.model.get('contents') + '.' +
 		"</div>");
     this.setElement(box[0]);
     return this.$el;
@@ -64,7 +64,7 @@ $(document).ready(function() {
   
   //TODO: Load notes from local storage
   S.set.Notes = new S.make.Notes();
-  S.set.Notes.loadFromStore();
+  //S.set.Notes.loadFromStore();
   
   var local_end = Date.now();
   console.log("Time it took to load from local storage: " + (local_end - local_start));
@@ -75,7 +75,7 @@ $(document).ready(function() {
     //console.log(notes);
     // Put these notes from server into collection.
     S.set.Notes.add(notes);
-    S.set.Notes.saveToStore();
+    //S.set.Notes.saveToStore();
   });
   var server_end = Date.now();
   console.log("Time it took to load from server: " + (server_end - server_start));
