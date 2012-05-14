@@ -32,6 +32,8 @@ app.configure('production', function(){
 app.get('/', routes.index);
 
 app.get('/data/notes', function(req, res) {
+  console.log(note);
+  console.log(note.allNotes);
   res.write(JSON.stringify(note.allNotes));
   res.end();
 });
