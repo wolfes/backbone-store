@@ -1,15 +1,15 @@
-
 /**
  * Module dependencies.
  */
-
 var express = require('express');
 var routes = require('./routes');
 
+// Data for Requests.
+var doc = require('./doc');
+var mail = require('./mail');
 var note = require('./note');
 
 var app = module.exports = express.createServer();
-
 
 // Configuration
 app.configure(function(){
@@ -31,9 +31,17 @@ app.configure('production', function(){
 // Routes
 app.get('/', routes.index);
 
+app.get('/data/docs', function(req, res) {
+  res.write(JSON.stringify(doc.allDocs));
+  res.end();
+});
+
+app.get('/data/mail', function(req, res) {
+  res.write(JSON.stringify(mail.allMail));
+  res.end();
+});
+
 app.get('/data/notes', function(req, res) {
-  console.log(note);
-  console.log(note.allNotes);
   res.write(JSON.stringify(note.allNotes));
   res.end();
 });
