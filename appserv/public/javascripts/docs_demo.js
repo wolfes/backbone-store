@@ -26,7 +26,7 @@ S.make.Doc = Backbone.Model.extend({
 });
 
 
-S.make.NoteView = Backbone.View.extend({ 
+S.make.DocView = Backbone.View.extend({ 
   initialize: function() {
 
   },
