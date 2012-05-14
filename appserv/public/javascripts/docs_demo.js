@@ -70,6 +70,7 @@ $(document).ready(function() {
   S.set.Docs.loadFromStore();
   
   var local_end = Date.now();
+  util.addTime('local', 'doc', local_end - local_start);
   console.log("Time it took to load from local storage: " + (local_end - local_start));
 
   S.server_start = Date.now();
@@ -79,7 +80,9 @@ $(document).ready(function() {
     // Put these docs from server into collection.
     //S.set.Docs.add(docs);
     //S.set.Docs.saveToStore();
+
     var server_end = Date.now();
+    util.addTime('server', 'doc', server_end - S.server_start);
     console.log("Time it took to load from server: " + (server_end - S.server_start));
     S.set.Docs.add(docs);
   });

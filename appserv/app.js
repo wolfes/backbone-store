@@ -1,9 +1,10 @@
 /**
  * Module dependencies.
  */
+var fs = require('fs');
 var express = require('express');
 var routes = require('./routes');
-var csv = require('ya-csv');
+var json2csv = require('json2csv');
 
 // Data for Requests.
 var doc = require('./doc');
@@ -50,12 +51,40 @@ app.get('/data/notes', function(req, res) {
   res.end();
 });
 
+var allData = [];
 
 io.sockets.on('connection', function (socket) {
+
     // Handle socket's connection
-    socket.on('recieveData', function(data) {
-	var writer = csv.createCsvFileWriter('/tmp/data');
-	writer.writeRecord(data);
+    socket.on('timeData', function(data) {
+	var numReq = 15;
+	if (!(data.name in allData)) {
+	    allData[data.name] = [];
+	}
+	if (allData[data.name].length === numReq) {
+	    return; // Done, must refresh server for this name.
+	}
+	if (!(data.name in allData)) {
+	    allData[data.name] = [];
+	}
+	allData[data.name].push(data.data);
+	if (allData[data.name].length < numReq) {
+	    socket.emit('nextTime', {'numItems': allData[data.name].length});
+	    return;
+	}
+
+	var csv = json2csv.parse({
+	    data: allData[data.name],
+	    fields: ['sdoc', 'smail', 'snote', 
+		     'cdoc', 'cmail', 'cnote']
+	});
+
+	fs.writeFile('data_' + data.name + '.csv', csv, function(err) {
+	    if (err) throw err;
+	    console.log('file saved!');
+	});
+
+	socket.emit('doneTime');
     });
 });
 

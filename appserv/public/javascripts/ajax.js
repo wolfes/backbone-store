@@ -46,30 +46,40 @@ ajax.getJSON = function(url, continuation) {
  */
 
 function debug() {
-    console.log.apply(console.log, arguments);
+    console.log.apply(console, arguments);
 }
 
 util.count_ = 0;
-util.times_ = {
-    'local': {}
-    'server': {}
-};
+util.times_ = {};
 
 /**
  * Add a time.
  * 'local', 'server'
  * 'doc', 'mail', 'note'
  */
-util.addTime(storeType, itemType, time) {
-    util.times_[storeType][itemType] = time;
+util.addTime = function(storeType, itemType, time) {
+    if (!(S.dataName in util.times_)) {
+	util.times_[S.dataName] = {server:{}, local: {}};
+    }
+    util.times_[S.dataName][storeType][itemType] = time;
     util.count_ += 1;
     if (util.count_ === 6) {
-	util.sendTimes();
+	util.sendTimes(S.dataName);
     }
 };
 
-util.printTimes() {
-    var t = this.times_;
-    sendMessage(t.local['doc'], t.local['mail'], t.local['note'],
-		t.server['doc'], t.server['mail'], t.server['note'])
+util.sendTimes = function(dataName) {
+    var t = util.times_[dataName];
+    debug(t);
+    socket.emit('timeData', {
+	'name': S.dataName,
+	'data': {
+	    'sdoc': t.server.doc,
+	    'smail': t.server.mail,
+	    'snote': t.server.note,
+	    'cdoc': t.local.doc,
+	    'cmail': t.local.mail,
+	    'cnote': t.local.note,
+	}
+    });		
 };

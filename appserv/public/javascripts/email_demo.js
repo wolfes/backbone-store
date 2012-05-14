@@ -71,6 +71,8 @@ $(document).ready(function() {
   
   var local_end = Date.now();
   console.log("Time it took to load from local storage: " + (local_end - local_start));
+  util.addTime('local', 'mail', local_end - local_start);
+
 
   S.server_start = Date.now();
   //load emails from server
@@ -80,6 +82,7 @@ $(document).ready(function() {
     //S.set.Emails.add(emails);
     //S.set.Emails.saveToStore();
     var server_end = Date.now();
+    util.addTime('server', 'mail', server_end - S.server_start);
     console.log("Time it took to load from server: " + (server_end - S.server_start));
     S.set.Emails.add(emails);
   });
