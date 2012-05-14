@@ -74,7 +74,13 @@ $(document).ready(function() {
   console.log("Time it took to load from local storage: " + (local_end - local_start));
 
   var server_start = Date.now();
-  //TODO: load emails from server
+  //load emails from server
+  ajax.getDocs(function(emails) {
+    //console.log(emails);
+    // Put these emails from server into collection.
+    S.set.Emails.add(emails);
+    S.set.Emails.saveToStore();
+  });
   var server_end = Date.now();
   console.log("Time it took to load from server: " + (server_end - server_start));
  

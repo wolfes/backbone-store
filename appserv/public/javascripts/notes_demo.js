@@ -70,7 +70,13 @@ $(document).ready(function() {
   console.log("Time it took to load from local storage: " + (local_end - local_start));
 
   var server_start = Date.now();
-  //TODO: load notes from server
+  //load notes from server
+  ajax.getDocs(function(notes) {
+    //console.log(notes);
+    // Put these notes from server into collection.
+    S.set.Notes.add(notes);
+    S.set.Notes.saveToStore();
+  });
   var server_end = Date.now();
   console.log("Time it took to load from server: " + (server_end - server_start));
 

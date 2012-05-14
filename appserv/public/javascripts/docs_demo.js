@@ -73,11 +73,12 @@ $(document).ready(function() {
   console.log("Time it took to load from local storage: " + (local_end - local_start));
 
   var server_start = Date.now();
-  //TODO: load docs from server
+  //load docs from server
   ajax.getDocs(function(docs) {
-    console.log(JSON.stringify(docs));
-    // Put these notes from server into collection.
-    
+    //console.log(docs);
+    // Put these docs from server into collection.
+    S.set.Docs.add(docs);
+    S.set.Docs.saveToStore();
   });
   var server_end = Date.now();
   console.log("Time it took to load from server: " + (server_end - server_start));
