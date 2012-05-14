@@ -3,8 +3,10 @@
  * Module dependencies.
  */
 
-var express = require('express')
-  , routes = require('./routes');
+var express = require('express');
+var routes = require('./routes');
+
+var note = require('./note');
 
 var app = module.exports = express.createServer();
 
@@ -30,7 +32,7 @@ app.configure('production', function(){
 app.get('/', routes.index);
 
 app.get('/data/notes', function(req, res) {
-  res.write('got it!');
+  res.write(JSON.stringify(note.allNotes));
   res.end();
 });
 
