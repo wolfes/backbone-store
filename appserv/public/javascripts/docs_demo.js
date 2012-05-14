@@ -74,6 +74,11 @@ $(document).ready(function() {
 
   var server_start = Date.now();
   //TODO: load docs from server
+  ajax.getDocs(function(docs) {
+    console.log(JSON.stringify(docs));
+    // Put these notes from server into collection.
+    
+  });
   var server_end = Date.now();
   console.log("Time it took to load from server: " + (server_end - server_start));
 
