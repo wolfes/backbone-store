@@ -62,6 +62,10 @@ S.make.Docs = Backbone.Collection.extend({
 });
 
 
+vent.on('saveAll', function(data) {
+    S.set.Docs.saveToStore();
+});
+
 $(document).ready(function() {
   var local_start = Date.now();
   

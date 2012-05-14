@@ -60,6 +60,10 @@ S.make.Notes = Backbone.Collection.extend({
 
 });
 
+vent.on('saveAll', function(data) {
+    S.set.Notes.saveToStore();
+});
+
 
 $(document).ready(function() {
   var local_start = Date.now();
