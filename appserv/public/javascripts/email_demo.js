@@ -77,10 +77,11 @@ $(document).ready(function() {
   ajax.getMail(function(emails) {
     //console.log(emails);
     // Put these emails from server into collection.
-    S.set.Emails.add(emails);
+    //S.set.Emails.add(emails);
     //S.set.Emails.saveToStore();
     var server_end = Date.now();
     console.log("Time it took to load from server: " + (server_end - S.server_start));
+    S.set.Emails.add(emails);
   });
   //var server_end = Date.now();
   //console.log("Time it took to load from server: " + (server_end - server_start));
