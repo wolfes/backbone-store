@@ -64,14 +64,21 @@ S.make.Emails = Backbone.Collection.extend({
 
 
 $(document).ready(function() {
-
-  //TODO: Load emails from local storage
+  var local_start = Date.now();
   
+  //TODO: Load emails from local storage
   S.set.Emails = new S.make.Emails();
   S.set.Emails.loadFromStore();
-
-  //TODO: load emails from server
   
+  var local_end = Date.now();
+  console.log("Time it took to load from local storage: " + (local_end - local_start));
+
+  var server_start = Date.now();
+  //TODO: load emails from server
+  var server_end = Date.now();
+  console.log("Time it took to load from server: " + (server_end - server_start));
+ 
+
 /*  for (var i = 0; i < S.set.HackerMob.models.length; i++) {
     debug(JSON.stringify(S.set.HackerMob.models[i]));
   }

@@ -63,12 +63,19 @@ S.make.Docs = Backbone.Collection.extend({
 
 
 $(document).ready(function() {
-  //TODO: load docs from local storage
+  var local_start = Date.now();
   
-  S.set.Notes = new S.make.Notes();
-  S.set.Notes.loadFromStore();
+  //TODO: Load docs from local storage
+  S.set.Docs = new S.make.Docs();
+  S.set.Docs.loadFromStore();
+  
+  var local_end = Date.now();
+  console.log("Time it took to load from local storage: " + (local_end - local_start));
 
+  var server_start = Date.now();
   //TODO: load docs from server
+  var server_end = Date.now();
+  console.log("Time it took to load from server: " + (server_end - server_start));
 
 
 /*  for (var i = 0; i < S.set.HackerMob.models.length; i++) {
