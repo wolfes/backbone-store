@@ -36,7 +36,7 @@ S.make.EmailView = Backbone.View.extend({
 		this.model.get('to') + ' from ' +
 		this.model.get('from') +  ' with subject '+
 		this.model.get('subject') + ' and content: '+
-		this.model.get('content') +
+		this.model.get('body') +
 		"</div>");
     this.setElement(box[0]);
     return this.$el;
@@ -68,7 +68,7 @@ $(document).ready(function() {
   
   //TODO: Load emails from local storage
   S.set.Emails = new S.make.Emails();
-  S.set.Emails.loadFromStore();
+  //S.set.Emails.loadFromStore();
   
   var local_end = Date.now();
   console.log("Time it took to load from local storage: " + (local_end - local_start));
@@ -79,7 +79,7 @@ $(document).ready(function() {
     //console.log(emails);
     // Put these emails from server into collection.
     S.set.Emails.add(emails);
-    S.set.Emails.saveToStore();
+    //S.set.Emails.saveToStore();
   });
   var server_end = Date.now();
   console.log("Time it took to load from server: " + (server_end - server_start));
