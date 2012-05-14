@@ -46,6 +46,7 @@ S.make.HackerView = Backbone.View.extend({
   }
 });
 
+
 S.make.HackerMob = Backbone.Collection.extend({
   storeid: 'hackermob',
   model: S.make.Hacker,
