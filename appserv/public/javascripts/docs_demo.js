@@ -31,12 +31,14 @@ S.make.DocView = Backbone.View.extend({
 
   },
   render: function() {
-    var box = $("<div> document " + 
-		this.model.get('docid') + 'has title: ' +
-		this.model.get('title') + 'and was written by: ' +
-		this.model.get('authors') + ' content: ' +
-		this.model.get('contents') +
-		"</div>");
+    var box = $(
+    "<div>" +
+    	"<b>Document id</b>: " + this.model.get('docid') + "</br>" +
+    	"<b>Title</b>: " + this.model.get('title') + "</br>" +
+    	"<b>Author(s)</b>: " + this.model.get('authors') + "</br>"+
+    	"<b>Content</b>:</br>" + this.model.get('contents') +
+		"</br></br>" +
+	"</div>");
     this.setElement(box[0]);
     return this.$el;
   }

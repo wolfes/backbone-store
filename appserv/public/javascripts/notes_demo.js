@@ -31,11 +31,13 @@ S.make.NoteView = Backbone.View.extend({
 
   },
   render: function() {
-    var box = $("<div> note " + 
-		this.model.get('noteid') + ' has title: ' +
-		this.model.get('title') + ' has content: ' +
-		this.model.get('contents') + '.' +
-		"</div>");
+    var box = $(
+    	"<div>" +
+    	"<b>Note id</b>: " + this.model.get('noteid') + "</br>" +
+    	"<b>Title</b>: " + this.model.get('title') + "</br>" +
+    	"<b>Content</b>:</br>" + this.model.get('contents') +
+		"</br></br>" +
+	    "</div>");
     this.setElement(box[0]);
     return this.$el;
   }

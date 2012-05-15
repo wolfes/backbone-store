@@ -31,13 +31,13 @@ S.make.EmailView = Backbone.View.extend({
 
   },
   render: function() {
-    var box = $("<div> email "+
+    var box = $("<div> <b>Email</b> "+
 		this.model.get('eid') + ' was sent to ' +
 		this.model.get('to') + ' from ' +
 		this.model.get('from') +  ' with subject '+
 		this.model.get('subject') + ' and content: '+
 		this.model.get('body') +
-		"</div>");
+		"</br></br></div>");
     this.setElement(box[0]);
     return this.$el;
   }
