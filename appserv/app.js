@@ -39,8 +39,12 @@ app.get('/', function(req, res) {
 app.get('/emails.html', function(req, res) {
   res.sendfile(__dirname + '/views/emails.html');
 });
+
 app.get('/emails_local.html', function(req, res) {
   res.sendfile(__dirname + '/views/emails_local.html');
+});
+app.get('/email.html', function(req, res) {
+    res.sendfile(__dirname + '/views/email.html');
 });
 app.get('/emails_remote.html', function(req, res) {
   res.sendfile(__dirname + '/views/emails_remote.html');
