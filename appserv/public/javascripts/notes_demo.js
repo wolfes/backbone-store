@@ -73,7 +73,7 @@ $(document).ready(function() {
 
   var server_start = Date.now();
   //load notes from server
-  ajax.getDocs(function(notes) {
+  ajax.getNotes(function(notes) {
     //console.log(notes);
     // Put these notes from server into collection.
     S.set.Notes.add(notes);

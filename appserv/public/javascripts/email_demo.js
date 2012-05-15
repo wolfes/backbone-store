@@ -31,13 +31,14 @@ S.make.EmailView = Backbone.View.extend({
 
   },
   render: function() {
-    var box = $("<div> <b>Email</b> "+
-		this.model.get('eid') + ' was sent to ' +
-		this.model.get('to') + ' from ' +
-		this.model.get('from') +  ' with subject '+
-		this.model.get('subject') + ' and content: '+
-		this.model.get('body') +
-		"</br></br></div>");
+  	var box = $("<div>" +
+    	"<b>Email id</b>: " + this.model.get('eid') + "</br>" +
+    	"<b>Recipient</b>: " + this.model.get('to') + "</br>" +
+    	"<b>Sender</b>: " + this.model.get('from') + "</br>"+
+    	"<b>Subject</b>: " + this.model.get('subject') + "</br>" +
+    	"<b>Content</b>:</br>" + this.model.get('body') +
+		"</br></br>" +
+	"</div>");
     this.setElement(box[0]);
     return this.$el;
   }
@@ -61,8 +62,6 @@ S.make.Emails = Backbone.Collection.extend({
 });
 
 
-
-
 $(document).ready(function() {
   var local_start = Date.now();
   
@@ -75,7 +74,7 @@ $(document).ready(function() {
 
   var server_start = Date.now();
   //load emails from server
-  ajax.getDocs(function(emails) {
+  ajax.getMail(function(emails) {
     //console.log(emails);
     // Put these emails from server into collection.
     S.set.Emails.add(emails);
