@@ -2,7 +2,7 @@
 
 var allDocs = exports.allDocs = function() {
     var doc = [];
-for (var i = 0; i < 50; i++) {
+for (var i = 0; i < 200; i++) {
   doc.push({
     'docid': i,
     'title': 'Title...',
