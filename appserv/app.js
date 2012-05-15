@@ -37,17 +37,17 @@ app.get('/', function(req, res) {
 });
 
 app.get('/data/docs', function(req, res) {
-  res.write(JSON.stringify(doc.allDocs));
+    res.write(JSON.stringify(doc.allDocs()));
   res.end();
 });
 
 app.get('/data/mail', function(req, res) {
-  res.write(JSON.stringify(mail.allMail));
+    res.write(JSON.stringify(mail.allMail()));
   res.end();
 });
 
 app.get('/data/notes', function(req, res) {
-  res.write(JSON.stringify(note.allNotes));
+    res.write(JSON.stringify(note.allNotes()));
   res.end();
 });
 
