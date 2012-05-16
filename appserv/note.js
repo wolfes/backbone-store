@@ -1,11 +1,13 @@
 
 
-var allNotes = exports.allNotes = [];
-
-for (var i = 0; i < 1000; i++) {
-  allNotes.push({
-    'noteid': i,
-    'title': 'Title...',
-    'contents': 'contents...'
-  });
-}
+var allNotes = exports.allNotes = function() {
+    var notes = [];
+    for (var i = 0; i < 50; i++) {
+	notes.push({
+	    'noteid': i,
+	    'title': 'Title...',
+	    'contents': 'contents... foo bar baz'
+	});
+    }
+    return notes;
+};

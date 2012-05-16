@@ -48,7 +48,9 @@ S.make.Notes = Backbone.Collection.extend({
   storeid: 'notes',
   model: S.make.Note,
   initialize: function() {
-    //this.on('add', this.addModel);
+    if ((typeof S.showNotes === 'boolean') && S.showNotes) {
+      this.on('add', this.addModel);
+    }
   },
   addModel: function(model) {
     var noteView = new S.make.NoteView({

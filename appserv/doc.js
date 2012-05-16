@@ -1,9 +1,9 @@
 
 
-var allDocs = exports.allDocs = [];
-
-for (var i = 0; i < 1000; i++) {
-  allDocs.push({
+var allDocs = exports.allDocs = function() {
+    var doc = [];
+for (var i = 0; i < 50; i++) {
+  doc.push({
     'docid': i,
     'title': 'Title...',
     'authors': 'author1, author2',
@@ -18,3 +18,5 @@ for (var i = 0; i < 1000; i++) {
 "Curabitur non mauris vitae risus cursus ultricies. Mauris et libero quam. Duis sit amet est vitae purus convallis iaculis nec a tortor. Pellentesque eu lacus neque, sit amet faucibus magna. Donec sodales feugiat urna, nec cursus purus lacinia ac. Curabitur sodales ante a dui cursus ac ornare nisl ullamcorper. Aenean libero tellus, luctus sit amet iaculis id, gravida tempus purus. Curabitur hendrerit, nunc tempus dignissim venenatis, nunc nunc egestas libero, eu lacinia sem ipsum non leo. Aliquam aliquet, dui lobortis feugiat viverra, lectus mi malesuada lorem, quis sagittis massa mi eget elit."
   });
 }
+    return doc;
+};

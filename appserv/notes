@@ -1,0 +1,18 @@
+localStorage.getItem('docs').length
+163241
+localStorage.getItem('emails').length
+45241
+localStorage.getItem('notes').length
+3491
+JSON.parse(localStorage.getItem('docs')).length
+50
+JSON.parse(localStorage.getItem('emails')).length
+50
+JSON.parse(localStorage.getItem('notes')).length
+50
+
+
+>> # chars in localstorage per:
+doc: 3265
+email: 905
+note: 70
