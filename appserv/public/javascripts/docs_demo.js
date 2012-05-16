@@ -49,7 +49,7 @@ S.make.Docs = Backbone.Collection.extend({
   storeid: 'docs',
   model: S.make.Doc,
   initialize: function() {
-    this.on('add', this.addModel);
+    //this.on('add', this.addModel);
   },
   addModel: function(model) {
     var docView = new S.make.DocView({
