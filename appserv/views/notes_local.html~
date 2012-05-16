@@ -10,13 +10,13 @@
 
 <script src="/javascripts/utils.js"></script>
 <script src="/javascripts/backbone-store.js"></script>
-<script src="/javascripts/docs_demo.js"></script>
+<script src="/javascripts/notes_demo.js"></script>
 <script src="/javascripts/ajax.js"></script>
 <script>
   var S = S || {};
   S.dataName = 'testme'; // Name of file to save csv timings to.
-  S.showDocs = true;
-  S.local = false;
+  S.showNotes = true;
+  S.local = true;
 
   // Global socket for reaching server.
   socket = io.connect(window.location.hostname); //'http://localhost'
@@ -38,6 +38,8 @@ ajax.getNotes(function(notes) {
 </script>-->
 </head>
 <body>
+
+<h1> Test page for backbone store </h1>
 
 <div id="list"></div>
 

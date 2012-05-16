@@ -16,7 +16,7 @@
   var S = S || {};
   S.dataName = 'testme'; // Name of file to save csv timings to.
   S.showDocs = true;
-  S.local = false;
+  S.local = true;
 
   // Global socket for reaching server.
   socket = io.connect(window.location.hostname); //'http://localhost'
@@ -38,6 +38,8 @@ ajax.getNotes(function(notes) {
 </script>-->
 </head>
 <body>
+
+<h1> Test page for backbone store </h1>
 
 <div id="list"></div>
 

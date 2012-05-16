@@ -39,6 +39,8 @@ ajax.getNotes(function(notes) {
 </head>
 <body>
 
+<h1> Test page for backbone store </h1>
+
 <div id="list"></div>
 
 </body>
