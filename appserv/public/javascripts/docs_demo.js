@@ -86,9 +86,9 @@ $(document).ready(function() {
     //S.set.Docs.saveToStore();
 
     var server_end = Date.now();
+    S.set.Docs.add(docs);
     util.addTime('server', 'doc', server_end - S.server_start_doc);
     console.log("Time it took to load from server: " + (server_end - S.server_start_doc));
-    S.set.Docs.add(docs);
   });
   //var server_end = Date.now();
   //console.log("Time it took to load from server: " + (server_end - server_start));

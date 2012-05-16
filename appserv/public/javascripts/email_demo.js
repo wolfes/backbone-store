@@ -88,9 +88,9 @@ $(document).ready(function() {
     //S.set.Emails.add(emails);
     //S.set.Emails.saveToStore();
     var server_end = Date.now();
-    util.addTime('server', 'mail', server_end - S.server_start_mail);
-    console.log("Time it took to load from server: " + (server_end - S.server_start_mail));
     S.set.Emails.add(emails);
+    console.log("Time it took to load from server: " + (server_end - S.server_start_mail));
+    util.addTime('server', 'mail', server_end - S.server_start_mail);
 
   });
   }, 9000);
