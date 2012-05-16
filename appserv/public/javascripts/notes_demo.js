@@ -83,8 +83,9 @@ $(document).ready(function() {
     // Put these notes from server into collection.
     //S.set.Notes.saveToStore();
 
-    var server_end = Date.now();
     S.set.Notes.add(notes);
+
+    var server_end = Date.now();
     console.log("Time it took to load from server: " + (server_end - S.server_start_note));
     util.addTime('server', 'note', server_end - S.server_start_note);
   });

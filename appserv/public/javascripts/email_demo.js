@@ -87,8 +87,9 @@ $(document).ready(function() {
     // Put these emails from server into collection.
     //S.set.Emails.add(emails);
     //S.set.Emails.saveToStore();
-    var server_end = Date.now();
     S.set.Emails.add(emails);
+
+    var server_end = Date.now();
     console.log("Time it took to load from server: " + (server_end - S.server_start_mail));
     util.addTime('server', 'mail', server_end - S.server_start_mail);
 
