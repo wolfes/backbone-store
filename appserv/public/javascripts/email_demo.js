@@ -67,7 +67,7 @@ vent.on('saveAll', function(data) {
     S.set.Emails.saveToStore();
 });
 
-S.loadLocaEmails = function () {
+S.loadLocalEmails = function () {
   var local_start = Date.now();
   S.set.Emails.loadFromStore();
   
