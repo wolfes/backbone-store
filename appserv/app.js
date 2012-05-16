@@ -35,19 +35,24 @@ app.configure('production', function(){
 app.get('/', function(req, res) {
   res.sendfile(__dirname + '/views/index.html');
 });
+
 app.get('/emails.html', function(req, res) {
   res.sendfile(__dirname + '/views/emails.html');
 });
+app.get('/email_local.html', function(req, res) {
+  res.sendfile(__dirname + '/views/email_local.html');
+});
+app.get('/email_remote.html', function(req, res) {
+  res.sendfile(__dirname + '/views/email_remote.html');
+});
+
+
 app.get('/docs', function(req, res) {
   res.sendfile(__dirname + '/views/docs.html');
 });
 app.get('/notes', function(req, res) {
   res.sendfile(__dirname + '/views/notes.html');
 });
-
-var S = S || {};
-S.showDocs = true;
-
 
 app.get('/data/docs', function(req, res) {
     res.write(JSON.stringify(doc.allDocs()));
