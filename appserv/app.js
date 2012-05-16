@@ -3,6 +3,7 @@
  */
 var express = require('express');
 var routes = require('./routes');
+var csv = require('ya-csv');
 
 // Data for Requests.
 var doc = require('./doc');
@@ -10,6 +11,7 @@ var mail = require('./mail');
 var note = require('./note');
 
 var app = module.exports = express.createServer();
+var io = require('socket.io').listen(app);
 
 // Configuration
 app.configure(function(){
@@ -46,6 +48,15 @@ app.get('/data/mail', function(req, res) {
 app.get('/data/notes', function(req, res) {
   res.write(JSON.stringify(note.allNotes));
   res.end();
+});
+
+
+io.sockets.on('connection', function (socket) {
+    // Handle socket's connection
+    socket.on('recieveData', function(data) {
+	var writer = csv.createCsvFileWriter('/tmp/data');
+	writer.writeRecord(data);
+    });
 });
 
 
