@@ -189,10 +189,7 @@ Backbone.persistence.each_model.onChange = function(model) {
  */
 Backbone.Collection.prototype.persistence_strategy = Backbone.persistence.each_model;
 //Backbone.Collection.prototype.persistence_strategy = Backbone.persistence.single_key;
-<<<<<<< HEAD
-Backbone.Collection.prototype.persistence_strategy = Backbone.persistence.each_model;
-=======
->>>>>>> 31134f81d4248861a08f5c9e76e3f309ac41919a
+//Backbone.Collection.prototype.persistence_strategy = Backbone.persistence.each_model;
 
 
 
