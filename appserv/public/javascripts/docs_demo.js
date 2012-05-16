@@ -77,10 +77,11 @@ $(document).ready(function() {
   ajax.getDocs(function(docs) {
     //console.log(docs);
     // Put these docs from server into collection.
-    S.set.Docs.add(docs);
+    //S.set.Docs.add(docs);
     //S.set.Docs.saveToStore();
     var server_end = Date.now();
     console.log("Time it took to load from server: " + (server_end - S.server_start));
+    S.set.Docs.add(docs);
   });
   //var server_end = Date.now();
   //console.log("Time it took to load from server: " + (server_end - server_start));
