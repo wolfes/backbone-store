@@ -8,7 +8,7 @@
 var ajax = ajax || {};
 var util = util || {};
 
-ajax.baseURL = window.location.href;
+ajax.baseURL = window.location.origin;
 
 ajax.getDocs = function(continuation) {
   ajax.getJSON('data/docs', continuation);
