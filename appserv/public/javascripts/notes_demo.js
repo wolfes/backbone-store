@@ -73,7 +73,7 @@ $(document).ready(function() {
   var local_end = Date.now();
   util.addTime('local', 'note', local_end - local_start);
   console.log("Time it took to load from local storage: " + (local_end - local_start));
-  }, 6000);
+  }, 12000);
 
   setTimeout(function () {
   S.server_start_note = Date.now();
@@ -88,7 +88,7 @@ $(document).ready(function() {
     console.log("Time it took to load from server: " + (server_end - S.server_start_note));
     S.set.Notes.add(notes);
   });
-  }, 7500);
+  }, 15000);
 
   //var server_end = Date.now();
   //console.log("Time it took to load from server: " + (server_end - server_start));

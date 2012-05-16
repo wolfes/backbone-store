@@ -93,7 +93,7 @@ $(document).ready(function() {
   //var server_end = Date.now();
   //console.log("Time it took to load from server: " + (server_end - server_start));
   //S.set.Docs.saveToStore();
-  }, 1500);
+  }, 3000);
 
 /*  for (var i = 0; i < S.set.HackerMob.models.length; i++) {
     debug(JSON.stringify(S.set.HackerMob.models[i]));
