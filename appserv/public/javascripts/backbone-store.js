@@ -112,6 +112,7 @@ Backbone.persistence.each_model.saveToStore = function(collection) {
         var model = collection.at(i);
         if (model.cacheid === undefined || model.cacheid === null) {
             model.cacheid = createGUID();
+            model.hasBeenChanged = true;
         }
 
         if (model.hasBeenChanged === undefined || model.hasBeenChanged === null || model.hasBeenChanged) {
