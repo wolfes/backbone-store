@@ -34,7 +34,8 @@ Backbone.persistence.single_key.isStored = function(collection) {
 // Assumes collection.storeid is defined and not null.
 Backbone.persistence.single_key.saveToStore = function(collection) {
     var data = collection.map(function(model) {
-        return JSON.stringify(model);
+        //return JSON.stringify(model);
+        return model.toJSON();
     });
     data = JSON.stringify(data);
     window.localStorage.setItem(collection.storeid, data);
@@ -51,7 +52,7 @@ Backbone.persistence.single_key.loadFromStore = function(collection) {
     }
     data = JSON.parse(data);
     for (var i = 0; i < data.length; i++) {
-        collection.add(JSON.parse(data[i]));
+        collection.add(data[i]);
     }
     return true;
 };
@@ -180,7 +181,7 @@ Backbone.persistence.each_model.onChange = function(model) {
  * Set a default persistence model for new collections
  */
 //Backbone.Collection.prototype.persistence_strategy = Backbone.persistence.single_key;
-Backbone.Collection.prototype.persistence_strategy = Backbone.persistence.each_model;
+Backbone.Collection.prototype.persistence_strategy = Backbone.persistence.single_key;
 
 
 
