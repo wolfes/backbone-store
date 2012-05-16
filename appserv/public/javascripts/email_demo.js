@@ -67,9 +67,7 @@ vent.on('saveAll', function(data) {
     S.set.Emails.saveToStore();
 });
 
-
-$(document).ready(function() {
-  setTimeout(function () {
+S.loadLocaEmails = function () {
   var local_start = Date.now();
   S.set.Emails = new S.make.Emails();
   S.set.Emails.loadFromStore();
@@ -77,12 +75,9 @@ $(document).ready(function() {
   var local_end = Date.now();
   console.log("Time it took to load from local storage: " + (local_end - local_start));
   util.addTime('local', 'mail', local_end - local_start);
-  }, 1000);
+};
 
-
-  //load emails from server
-
-  setTimeout(function () {
+S.loadRemoteEmails = function () {
   S.server_start_mail = Date.now();
   ajax.getMail(function(emails) {
     //console.log(emails);
@@ -96,15 +91,14 @@ $(document).ready(function() {
     util.addTime('server', 'mail', server_end - S.server_start_mail);
 
   });
-  }, 1500);
+};
 
-  //var server_end = Date.now();
-  //console.log("Time it took to load from server: " + (server_end - server_start));
- 
-
-/*  for (var i = 0; i < S.set.HackerMob.models.length; i++) {
-    debug(JSON.stringify(S.set.HackerMob.models[i]));
+$(document).ready(function() {
+  if ((typeof S.showEmails === 'boolean') && S.showEmails) {
+    setTimeout(S.loadLocalEmails, 1000);
+    setTimeout(S.loadRemoteEmails, 1500);
+  } else {
+    S.loadLocalEmails();
+    S.loadRemoteEmails();
   }
-*/
-
 });

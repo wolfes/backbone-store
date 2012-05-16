@@ -66,18 +66,16 @@ vent.on('saveAll', function(data) {
     S.set.Notes.saveToStore();
 });
 
-
-$(document).ready(function() {
-  setTimeout(function () {
+S.loadLocalNotes = function() {
   var local_start = Date.now();
   S.set.Notes = new S.make.Notes();
   S.set.Notes.loadFromStore();
   var local_end = Date.now();
   util.addTime('local', 'note', local_end - local_start);
   console.log("Time it took to load from local storage: " + (local_end - local_start));
-  }, 2000);
+};
 
-  setTimeout(function () {
+S.loadRemoteNotes = function () {
   S.server_start_note = Date.now();
   //load notes from server
   ajax.getNotes(function(notes) {
@@ -91,16 +89,16 @@ $(document).ready(function() {
     console.log("Time it took to load from server: " + (server_end - S.server_start_note));
     util.addTime('server', 'note', server_end - S.server_start_note);
   });
-  }, 2500);
+};
 
-  //var server_end = Date.now();
-  //console.log("Time it took to load from server: " + (server_end - server_start));
-
-/*  for (var i = 0; i < S.set.HackerMob.models.length; i++) {
-    debug(JSON.stringify(S.set.HackerMob.models[i]));
+$(document).ready(function() {
+  if ((typeof S.showNotes === 'boolean') && S.showNotes) {
+    setTimeout(S.loadLocalNotes, 2000);
+    setTimeout(S.loadRemoteNotes, 2500);
+  } else {
+    S.loadLocalNotes();
+    S.loadRemoteNotes();
   }
-*/
-
 });
 
 

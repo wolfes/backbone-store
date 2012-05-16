@@ -68,17 +68,16 @@ vent.on('saveAll', function(data) {
     S.set.Docs.saveToStore();
 });
 
-$(document).ready(function() {
-  setTimeout(function () {
+S.loadLocalDocs = function () {
   var local_start = Date.now();
   S.set.Docs = new S.make.Docs();
   S.set.Docs.loadFromStore();
   var local_end = Date.now();
   util.addTime('local', 'doc', local_end - local_start);
   console.log("Time it took to load from local storage: " + (local_end - local_start));
-  }, 0);
+};
 
-  setTimeout(function () {
+S.loadRemoteDocs = function () {
   S.server_start_doc = Date.now();
   //load docs from server
   ajax.getDocs(function(docs) {
@@ -95,12 +94,15 @@ $(document).ready(function() {
   //var server_end = Date.now();
   //console.log("Time it took to load from server: " + (server_end - server_start));
   //S.set.Docs.saveToStore();
-  }, 500);
+};
 
-/*  for (var i = 0; i < S.set.HackerMob.models.length; i++) {
-    debug(JSON.stringify(S.set.HackerMob.models[i]));
+$(document).ready(function() {
+  if ((typeof S.showDocs === 'boolean') && S.showDocs) {
+    setTimeout(S.loadLocalDocs, 0);
+    setTimeout(S.loadRemoteDocs, 500);
+  } else {
+    S.loadLocalDocs();
+    S.loadRemoteDocs();
   }
-*/
-
 });
 
