@@ -48,7 +48,7 @@ S.make.Notes = Backbone.Collection.extend({
   storeid: 'notes',
   model: S.make.Note,
   initialize: function() {
-    this.on('add', this.addModel);
+    //this.on('add', this.addModel);
   },
   addModel: function(model) {
     var noteView = new S.make.NoteView({

@@ -49,7 +49,7 @@ S.make.Emails = Backbone.Collection.extend({
   storeid: 'emails',
   model: S.make.Email,
   initialize: function() {
-    this.on('add', this.addModel);
+    //this.on('add', this.addModel);
   },
   addModel: function(model) {
     var emailView = new S.make.EmailView({
