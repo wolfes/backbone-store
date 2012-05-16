@@ -10,7 +10,6 @@ var util = util || {};
 
 ajax.baseURL = window.location.href;
 
-
 ajax.getDocs = function(continuation) {
   ajax.getJSON('data/docs', continuation);
 }
