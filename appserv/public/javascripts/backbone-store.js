@@ -48,17 +48,12 @@ Backbone.persistence.single_key.saveToStore = function(collection) {
 // Populates the collection with models from the store.
 // Assumes collection.storeid is defined and not null.
 Backbone.persistence.single_key.loadFromStore = function(collection) {
-  var data = window.localStorage.getItem(collection.storeid);
+  var data = localStorage.getItem(collection.storeid);
   if (data === null) {
     return false;
   }
   data = JSON.parse(data);
   collection.add(data);
-  
-  /*var numData = data.length;
-  for (var i = 0; i < numData; i++) {
-    collection.add(data[i]);
-  }*/
   return true;
 };
 
