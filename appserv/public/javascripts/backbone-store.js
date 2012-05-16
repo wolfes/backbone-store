@@ -33,27 +33,28 @@ Backbone.persistence.single_key.isStored = function(collection) {
 // Saves the collection into the local store.
 // Assumes collection.storeid is defined and not null.
 Backbone.persistence.single_key.saveToStore = function(collection) {
-    var data = collection.map(function(model) {
-        return JSON.stringify(model);
-    });
-    data = JSON.stringify(data);
-    window.localStorage.setItem(collection.storeid, data);
-    return true;
+/*  var data = collection.map(function(model) {
+    //return JSON.stringify(model);
+    return model.toJSON();
+  });
+  data = JSON.stringify(data);
+  window.localStorage.setItem(collection.storeid, data);
+*/
+  localStorage.setItem(collection.storeid, JSON.stringify(collection));
+  return true;
 };
 
 
 // Populates the collection with models from the store.
 // Assumes collection.storeid is defined and not null.
 Backbone.persistence.single_key.loadFromStore = function(collection) {
-    var data = window.localStorage.getItem(collection.storeid);
-    if (data === null) {
-        return false;
-    }
-    data = JSON.parse(data);
-    for (var i = 0; i < data.length; i++) {
-        collection.add(JSON.parse(data[i]));
-    }
-    return true;
+  var data = localStorage.getItem(collection.storeid);
+  if (data === null) {
+    return false;
+  }
+  data = JSON.parse(data);
+  collection.add(data);
+  return true;
 };
 
 
@@ -112,6 +113,7 @@ Backbone.persistence.each_model.saveToStore = function(collection) {
         var model = collection.at(i);
         if (model.cacheid === undefined || model.cacheid === null) {
             model.cacheid = createGUID();
+            model.hasBeenChanged = true;
         }
 
         if (model.hasBeenChanged === undefined || model.hasBeenChanged === null || model.hasBeenChanged) {
@@ -138,20 +140,24 @@ Backbone.persistence.each_model.loadFromStore = function(collection) {
     }
     models = JSON.parse(models);
 
-    for (var i = 0; i < models.length; i++) {
+    var newModels = []
+
+    var len = models.length;
+    for (var i = 0; i < len; i++) {
         var data = window.localStorage.getItem(models[i]);
         data = JSON.parse(data);
         var model = new collection.model(data);
         model.cacheid = models[i];
-        collection.add(model);
+        newModels.push(model);
     }
+    collection.add(newModels);
 }
 
 
 // Removes the collection from the store.
 // Assumes collection.storeid is defined and not null.
 Backbone.persistence.each_model.removeFromStore = function(collection) {
-    return window.localStorage.removeIte(collection.storeid);
+    return window.localStorage.removeItem(collection.storeid);
 }
 
 
@@ -178,8 +184,9 @@ Backbone.persistence.each_model.onChange = function(model) {
 /*
  * Set a default persistence model for new collections
  */
-//Backbone.Collection.prototype.persistence_strategy = Backbone.persistence.single_key;
-Backbone.Collection.prototype.persistence_strategy = Backbone.persistence.each_model;
+//Backbone.Collection.prototype.persistence_strategy = Backbone.persistence.each_model;
+Backbone.Collection.prototype.persistence_strategy = Backbone.persistence.single_key;
+//Backbone.Collection.prototype.persistence_strategy = Backbone.persistence.each_model;
 
 
 

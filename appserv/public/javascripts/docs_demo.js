@@ -49,7 +49,7 @@ S.make.Docs = Backbone.Collection.extend({
   storeid: 'docs',
   model: S.make.Doc,
   initialize: function() {
-    this.on('add', this.addModel);
+    //this.on('add', this.addModel);
   },
   addModel: function(model) {
     var docView = new S.make.DocView({
@@ -62,31 +62,38 @@ S.make.Docs = Backbone.Collection.extend({
 });
 
 
+vent.on('saveAll', function(data) {
+    S.set.Docs.saveToStore();
+});
+
 $(document).ready(function() {
+  setTimeout(function () {
   var local_start = Date.now();
-  
-  //TODO: Load docs from local storage
   S.set.Docs = new S.make.Docs();
   S.set.Docs.loadFromStore();
-  
   var local_end = Date.now();
+  util.addTime('local', 'doc', local_end - local_start);
   console.log("Time it took to load from local storage: " + (local_end - local_start));
+  }, 0);
 
-  S.server_start = Date.now();
+  setTimeout(function () {
+  S.server_start_doc = Date.now();
   //load docs from server
   ajax.getDocs(function(docs) {
     //console.log(docs);
     // Put these docs from server into collection.
     //S.set.Docs.add(docs);
     //S.set.Docs.saveToStore();
-    var server_end = Date.now();
-    console.log("Time it took to load from server: " + (server_end - S.server_start));
+
     S.set.Docs.add(docs);
+    var server_end = Date.now();
+    util.addTime('server', 'doc', server_end - S.server_start_doc);
+    console.log("Time it took to load from server: " + (server_end - S.server_start_doc));
   });
   //var server_end = Date.now();
   //console.log("Time it took to load from server: " + (server_end - server_start));
   //S.set.Docs.saveToStore();
-
+  }, 500);
 
 /*  for (var i = 0; i < S.set.HackerMob.models.length; i++) {
     debug(JSON.stringify(S.set.HackerMob.models[i]));

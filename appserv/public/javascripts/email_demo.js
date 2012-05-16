@@ -49,7 +49,7 @@ S.make.Emails = Backbone.Collection.extend({
   storeid: 'emails',
   model: S.make.Email,
   initialize: function() {
-    this.on('add', this.addModel);
+    //this.on('add', this.addModel);
   },
   addModel: function(model) {
     var emailView = new S.make.EmailView({
@@ -61,28 +61,41 @@ S.make.Emails = Backbone.Collection.extend({
 
 });
 
+vent.on('saveAll', function(data) {
+    S.set.Emails.saveToStore();
+});
+
 
 $(document).ready(function() {
+  setTimeout(function () {
   var local_start = Date.now();
-  
-  //TODO: Load emails from local storage
   S.set.Emails = new S.make.Emails();
   S.set.Emails.loadFromStore();
   
   var local_end = Date.now();
   console.log("Time it took to load from local storage: " + (local_end - local_start));
+  util.addTime('local', 'mail', local_end - local_start);
+  }, 1000);
 
-  S.server_start = Date.now();
+
   //load emails from server
+
+  setTimeout(function () {
+  S.server_start_mail = Date.now();
   ajax.getMail(function(emails) {
     //console.log(emails);
     // Put these emails from server into collection.
     //S.set.Emails.add(emails);
     //S.set.Emails.saveToStore();
-    var server_end = Date.now();
-    console.log("Time it took to load from server: " + (server_end - S.server_start));
     S.set.Emails.add(emails);
+
+    var server_end = Date.now();
+    console.log("Time it took to load from server: " + (server_end - S.server_start_mail));
+    util.addTime('server', 'mail', server_end - S.server_start_mail);
+
   });
+  }, 1500);
+
   //var server_end = Date.now();
   //console.log("Time it took to load from server: " + (server_end - server_start));
  

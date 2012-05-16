@@ -2,20 +2,34 @@
 <html>
 <head>
 <title>Backbone-store test page</title>
+<script src="/socket.io/socket.io.js"></script>
+
 <script src="/javascripts/lib/jquery-1.7.1.min.js"></script>
 <script src="/javascripts/lib/underscore-1.3.3.js"></script>
 <script src="/javascripts/lib/backbone.js"></script>
+
+<script src="/javascripts/utils.js"></script>
 <script src="/javascripts/backbone-store.js"></script>
 <script src="/javascripts/docs_demo.js"></script>
 <script src="/javascripts/email_demo.js"></script>
 <script src="/javascripts/notes_demo.js"></script>
 
+
 <script src="/javascripts/ajax.js"></script>
 <script>
+  S.dataName = 'testme'; // Name of file to save csv timings to.
+
   // Global socket for reaching server.
-  console.log(window.location.hostname);
+  //console.log(window.location.hostname);
   socket = io.connect(window.location.hostname); //'http://localhost'
-  console.log('socket setup');
+  //console.log('socket setup');
+
+  socket.on('nextTime', function(data) {
+    debug('NEXT: recieved', data.numItems, ' timings.');
+  });
+  socket.on('doneTime', function(data) {
+    debug('DONE !');
+  });
 </script>
 
 
