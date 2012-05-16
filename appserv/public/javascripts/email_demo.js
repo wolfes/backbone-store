@@ -75,7 +75,7 @@ $(document).ready(function() {
   var local_end = Date.now();
   console.log("Time it took to load from local storage: " + (local_end - local_start));
   util.addTime('local', 'mail', local_end - local_start);
-  }, 100);
+  }, 1000);
 
 
   //load emails from server
