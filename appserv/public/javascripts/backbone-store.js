@@ -143,20 +143,25 @@ Backbone.persistence.each_model.loadFromStore = function(collection) {
     }
     models = JSON.parse(models);
 
-    for (var i = 0; i < models.length; i++) {
+    var newModels = []
+
+    var len = models.length;
+    for (var i = 0; i < len; i++) {
         var data = window.localStorage.getItem(models[i]);
         data = JSON.parse(data);
         var model = new collection.model(data);
         model.cacheid = models[i];
-        collection.add(model);
+        //collection.add(model);
+        newModels.push(model);
     }
+    collection.add(newModels);
 }
 
 
 // Removes the collection from the store.
 // Assumes collection.storeid is defined and not null.
 Backbone.persistence.each_model.removeFromStore = function(collection) {
-    return window.localStorage.removeIte(collection.storeid);
+    return window.localStorage.removeItem(collection.storeid);
 }
 
 
@@ -184,7 +189,7 @@ Backbone.persistence.each_model.onChange = function(model) {
  * Set a default persistence model for new collections
  */
 //Backbone.Collection.prototype.persistence_strategy = Backbone.persistence.single_key;
-Backbone.Collection.prototype.persistence_strategy = Backbone.persistence.single_key;
+Backbone.Collection.prototype.persistence_strategy = Backbone.persistence.each_model;
 
 
 
