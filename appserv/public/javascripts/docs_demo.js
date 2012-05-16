@@ -70,7 +70,6 @@ vent.on('saveAll', function(data) {
 
 S.loadLocalDocs = function () {
   var local_start = Date.now();
-  S.set.Docs = new S.make.Docs();
   S.set.Docs.loadFromStore();
   var local_end = Date.now();
   util.addTime('local', 'doc', local_end - local_start);
@@ -97,6 +96,7 @@ S.loadRemoteDocs = function () {
 };
 
 $(document).ready(function() {
+  S.set.Docs = new S.make.Docs();
   if ((typeof S.showDocs === 'boolean') && S.showDocs) {
     setTimeout(S.loadLocalDocs, 0);
     setTimeout(S.loadRemoteDocs, 500);

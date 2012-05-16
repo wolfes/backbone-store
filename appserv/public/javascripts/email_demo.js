@@ -69,7 +69,6 @@ vent.on('saveAll', function(data) {
 
 S.loadLocaEmails = function () {
   var local_start = Date.now();
-  S.set.Emails = new S.make.Emails();
   S.set.Emails.loadFromStore();
   
   var local_end = Date.now();
@@ -94,6 +93,7 @@ S.loadRemoteEmails = function () {
 };
 
 $(document).ready(function() {
+  S.set.Emails = new S.make.Emails();
   if ((typeof S.showEmails === 'boolean') && S.showEmails) {
     setTimeout(S.loadLocalEmails, 1000);
     setTimeout(S.loadRemoteEmails, 1500);

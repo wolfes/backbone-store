@@ -68,7 +68,6 @@ vent.on('saveAll', function(data) {
 
 S.loadLocalNotes = function() {
   var local_start = Date.now();
-  S.set.Notes = new S.make.Notes();
   S.set.Notes.loadFromStore();
   var local_end = Date.now();
   util.addTime('local', 'note', local_end - local_start);
@@ -92,6 +91,7 @@ S.loadRemoteNotes = function () {
 };
 
 $(document).ready(function() {
+  S.set.Notes = new S.make.Notes();
   if ((typeof S.showNotes === 'boolean') && S.showNotes) {
     setTimeout(S.loadLocalNotes, 2000);
     setTimeout(S.loadRemoteNotes, 2500);
