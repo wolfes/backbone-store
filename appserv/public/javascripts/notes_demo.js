@@ -66,17 +66,17 @@ vent.on('saveAll', function(data) {
 
 
 $(document).ready(function() {
+  setTimeout(function () {
   var local_start = Date.now();
-  
-  //TODO: Load notes from local storage
   S.set.Notes = new S.make.Notes();
   S.set.Notes.loadFromStore();
-  
   var local_end = Date.now();
   util.addTime('local', 'note', local_end - local_start);
   console.log("Time it took to load from local storage: " + (local_end - local_start));
+  }, 6000);
 
-  S.server_start = Date.now();
+  setTimeout(function () {
+  S.server_start_note = Date.now();
   //load notes from server
   ajax.getNotes(function(notes) {
     //console.log(notes);
@@ -84,10 +84,12 @@ $(document).ready(function() {
     //S.set.Notes.saveToStore();
 
     var server_end = Date.now();
-    util.addTime('server', 'note', server_end - S.server_start);
-    console.log("Time it took to load from server: " + (server_end - S.server_start));
+    util.addTime('server', 'note', server_end - S.server_start_note);
+    console.log("Time it took to load from server: " + (server_end - S.server_start_note));
     S.set.Notes.add(notes);
   });
+  }, 7500);
+
   //var server_end = Date.now();
   //console.log("Time it took to load from server: " + (server_end - server_start));
 

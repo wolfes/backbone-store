@@ -67,29 +67,34 @@ vent.on('saveAll', function(data) {
 
 
 $(document).ready(function() {
+  setTimeout(function () {
   var local_start = Date.now();
-  
-  //TODO: Load emails from local storage
   S.set.Emails = new S.make.Emails();
   S.set.Emails.loadFromStore();
   
   var local_end = Date.now();
   console.log("Time it took to load from local storage: " + (local_end - local_start));
   util.addTime('local', 'mail', local_end - local_start);
+  }, 3000);
 
 
-  S.server_start = Date.now();
   //load emails from server
+
+  setTimeout(function () {
+  S.server_start_mail = Date.now();
   ajax.getMail(function(emails) {
     //console.log(emails);
     // Put these emails from server into collection.
     //S.set.Emails.add(emails);
     //S.set.Emails.saveToStore();
     var server_end = Date.now();
-    util.addTime('server', 'mail', server_end - S.server_start);
-    console.log("Time it took to load from server: " + (server_end - S.server_start));
+    util.addTime('server', 'mail', server_end - S.server_start_mail);
+    console.log("Time it took to load from server: " + (server_end - S.server_start_mail));
     S.set.Emails.add(emails);
+
   });
+  }, 4500);
+
   //var server_end = Date.now();
   //console.log("Time it took to load from server: " + (server_end - server_start));
  
