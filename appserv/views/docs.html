@@ -18,9 +18,7 @@
   S.showDocs = true;
   
   // Global socket for reaching server.
-  //console.log(window.location.hostname);
   socket = io.connect(window.location.hostname); //'http://localhost'
-  //console.log('socket setup');
 
   socket.on('nextTime', function(data) {
     debug('NEXT: recieved', data.numItems, ' timings.');
@@ -30,19 +28,20 @@
   });
 </script>
 
+<style>
 
-<!--<script>
-// Example usage: Pass function that takes data to ajax.getSomething
-ajax.getNotes(function(notes) {
-  console.log(notes);
-});
-</script>-->
+iframe {
+  height: 100%;
+  width: 50%;
+}
+
+</style>
+
 </head>
 <body>
 
-<h1> Test page for backbone store </h1>
-
-<div id="list"></div>
+<iframe src="http://18.248.7.216:2000/docs_local.html"></iframe>
+<iframe src="http://18.248.7.216:2000/docs_remote.html"></iframe>
 
 </body>
 </html>
