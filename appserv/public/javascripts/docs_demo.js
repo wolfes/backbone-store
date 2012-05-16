@@ -67,21 +67,24 @@ $(document).ready(function() {
   
   //TODO: Load docs from local storage
   S.set.Docs = new S.make.Docs();
-  //S.set.Docs.loadFromStore();
+  S.set.Docs.loadFromStore();
   
   var local_end = Date.now();
   console.log("Time it took to load from local storage: " + (local_end - local_start));
 
-  var server_start = Date.now();
+  S.server_start = Date.now();
   //load docs from server
   ajax.getDocs(function(docs) {
     //console.log(docs);
     // Put these docs from server into collection.
     S.set.Docs.add(docs);
     //S.set.Docs.saveToStore();
+    var server_end = Date.now();
+    console.log("Time it took to load from server: " + (server_end - S.server_start));
   });
-  var server_end = Date.now();
-  console.log("Time it took to load from server: " + (server_end - server_start));
+  //var server_end = Date.now();
+  //console.log("Time it took to load from server: " + (server_end - server_start));
+  //S.set.Docs.saveToStore();
 
 
 /*  for (var i = 0; i < S.set.HackerMob.models.length; i++) {

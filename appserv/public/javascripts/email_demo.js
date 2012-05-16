@@ -67,21 +67,23 @@ $(document).ready(function() {
   
   //TODO: Load emails from local storage
   S.set.Emails = new S.make.Emails();
-  //S.set.Emails.loadFromStore();
+  S.set.Emails.loadFromStore();
   
   var local_end = Date.now();
   console.log("Time it took to load from local storage: " + (local_end - local_start));
 
-  var server_start = Date.now();
+  S.server_start = Date.now();
   //load emails from server
   ajax.getMail(function(emails) {
     //console.log(emails);
     // Put these emails from server into collection.
     S.set.Emails.add(emails);
     //S.set.Emails.saveToStore();
+    var server_end = Date.now();
+    console.log("Time it took to load from server: " + (server_end - S.server_start));
   });
-  var server_end = Date.now();
-  console.log("Time it took to load from server: " + (server_end - server_start));
+  //var server_end = Date.now();
+  //console.log("Time it took to load from server: " + (server_end - server_start));
  
 
 /*  for (var i = 0; i < S.set.HackerMob.models.length; i++) {

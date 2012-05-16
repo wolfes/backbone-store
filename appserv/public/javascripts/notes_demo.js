@@ -66,21 +66,23 @@ $(document).ready(function() {
   
   //TODO: Load notes from local storage
   S.set.Notes = new S.make.Notes();
-  //S.set.Notes.loadFromStore();
+  S.set.Notes.loadFromStore();
   
   var local_end = Date.now();
   console.log("Time it took to load from local storage: " + (local_end - local_start));
 
-  var server_start = Date.now();
+  S.server_start = Date.now();
   //load notes from server
   ajax.getNotes(function(notes) {
     //console.log(notes);
     // Put these notes from server into collection.
     S.set.Notes.add(notes);
     //S.set.Notes.saveToStore();
+    var server_end = Date.now();
+    console.log("Time it took to load from server: " + (server_end - S.server_start));
   });
-  var server_end = Date.now();
-  console.log("Time it took to load from server: " + (server_end - server_start));
+  //var server_end = Date.now();
+  //console.log("Time it took to load from server: " + (server_end - server_start));
 
 /*  for (var i = 0; i < S.set.HackerMob.models.length; i++) {
     debug(JSON.stringify(S.set.HackerMob.models[i]));
