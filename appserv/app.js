@@ -54,9 +54,31 @@ app.get('/emails_remote.html', function(req, res) {
 app.get('/docs', function(req, res) {
   res.sendfile(__dirname + '/views/docs.html');
 });
+app.get('/docs_local.html', function(req, res) {
+	res.sendfile(__dirname + '/views/docs_local.html');
+    });
+app.get('/doc.html', function(req, res) {
+	res.sendfile(__dirname + '/views/doc.html');
+    });
+app.get('/docs_remote.html', function(req, res) {
+	res.sendfile(__dirname + '/views/docs_remote.html');
+    });
+
+
+
 app.get('/notes', function(req, res) {
   res.sendfile(__dirname + '/views/notes.html');
 });
+app.get('/notes_local.html', function(req, res) {
+	res.sendfile(__dirname + '/views/notes_local.html');
+    });
+app.get('/note.html', function(req, res) {
+	res.sendfile(__dirname + '/views/note.html');
+    });
+app.get('/notes_remote.html', function(req, res) {
+	res.sendfile(__dirname + '/views/notes_remote.html');
+    });
+
 
 app.get('/data/docs', function(req, res) {
     res.write(JSON.stringify(doc.allDocs()));
