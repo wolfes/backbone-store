@@ -61,6 +61,10 @@ S.make.Emails = Backbone.Collection.extend({
 
 });
 
+vent.on('saveAll', function(data) {
+    S.set.Emails.saveToStore();
+});
+
 
 $(document).ready(function() {
   var local_start = Date.now();
