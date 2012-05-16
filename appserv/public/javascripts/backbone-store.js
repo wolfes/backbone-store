@@ -136,20 +136,21 @@ Backbone.persistence.each_model.saveToStore = function(collection) {
 // Populates the collection with models from the store.
 // Assumes collection.storeid is defined and not null.
 Backbone.persistence.each_model.loadFromStore = function(collection) {
-    // Get list of model IDs in this collection
-    var models = window.localStorage.getItem(collection.storeid);
-    if (models === undefined || models === null) {
-        return false;
-    }
-    models = JSON.parse(models);
+  // Get list of model IDs in this collection
+  var models = window.localStorage.getItem(collection.storeid);
+  if (models === undefined || models === null) {
+    return false;
+  }
+  models = JSON.parse(models);
 
-    for (var i = 0; i < models.length; i++) {
-        var data = window.localStorage.getItem(models[i]);
-        data = JSON.parse(data);
-        var model = new collection.model(data);
-        model.cacheid = models[i];
-        collection.add(model);
-    }
+  
+  for (var i = 0; i < models.length; i++) {
+    var data = window.localStorage.getItem(models[i]);
+    data = JSON.parse(data);
+    var model = new collection.model(data);
+    model.cacheid = models[i];
+    collection.add(model);
+  }
 }
 
 
