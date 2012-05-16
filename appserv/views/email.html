@@ -1,0 +1,47 @@
+<!DOCTYPE HTML">
+<html>
+<head>
+<title>Backbone-store test page</title>
+<script src="/socket.io/socket.io.js"></script>
+
+<script src="/javascripts/lib/jquery-1.7.1.min.js"></script>
+<script src="/javascripts/lib/underscore-1.3.3.js"></script>
+<script src="/javascripts/lib/backbone.js"></script>
+
+<script src="/javascripts/utils.js"></script>
+<script src="/javascripts/backbone-store.js"></script>
+<script src="/javascripts/email_demo.js"></script>
+<script src="/javascripts/ajax.js"></script>
+<script>
+  var S = S || {};
+  S.dataName = 'testme'; // Name of file to save csv timings to.
+  S.showEmails = true;
+  
+  // Global socket for reaching server.
+  socket = io.connect(window.location.hostname); //'http://localhost'
+
+  socket.on('nextTime', function(data) {
+    debug('NEXT: recieved', data.numItems, ' timings.');
+  });
+  socket.on('doneTime', function(data) {
+    debug('DONE !');
+  });
+</script>
+
+<style>
+
+iframe {
+  height: 100%;
+  width: 50%;
+}
+
+</style>
+
+</head>
+<body>
+
+<iframe src="http://18.248.7.216:2000/emails_local.html"></iframe>
+<iframe src="http://18.248.7.216:2000/emails_remote.html"></iframe>
+
+</body>
+</html>

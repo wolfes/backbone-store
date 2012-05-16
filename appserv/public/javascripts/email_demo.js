@@ -95,10 +95,18 @@ S.loadRemoteEmails = function () {
 $(document).ready(function() {
   S.set.Emails = new S.make.Emails();
   if ((typeof S.showEmails === 'boolean') && S.showEmails) {
+    if (typeof S.local === 'boolean') {
+      if (S.local) {
+	S.loadLocalEmails();
+      } else {
+	S.loadRemoteEmails();
+      }
+    } else {
+      S.loadLocalEmails();
+      S.loadRemoteEmails();
+    }
+  } else {
     setTimeout(S.loadLocalEmails, 1000);
     setTimeout(S.loadRemoteEmails, 1500);
-  } else {
-    S.loadLocalEmails();
-    S.loadRemoteEmails();
   }
 });
