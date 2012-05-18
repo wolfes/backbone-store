@@ -16,3 +16,6 @@ JSON.parse(localStorage.getItem('notes')).length
 doc: 3265
 email: 905
 note: 70
+
+
+http://18.248.7.216:2000/email.html

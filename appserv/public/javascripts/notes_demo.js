@@ -92,13 +92,21 @@ S.loadRemoteNotes = function () {
 
 $(document).ready(function() {
   S.set.Notes = new S.make.Notes();
-  if ((typeof S.showNotes === 'boolean') && S.showNotes) {
-    setTimeout(S.loadLocalNotes, 2000);
-    setTimeout(S.loadRemoteNotes, 2500);
-  } else {
-    S.loadLocalNotes();
-    S.loadRemoteNotes();
-  }
+    if ((typeof S.showNotes === 'boolean') && S.showNotes) {
+	if (typeof S.local === 'boolean') {
+	    if (S.local) {
+		S.loadLocalNotes();
+	    } else {
+		S.loadRemoteNotes();
+	    }
+	} else {
+	    S.loadLocalNotes();
+	    S.loadRemoteNotes();
+	}
+    } else {
+	setTimeout(S.loadLocalNotes, 2000);
+	setTimeout(S.loadRemoteNotes, 2500);
+    }
 });
 
 

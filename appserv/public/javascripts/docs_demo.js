@@ -98,11 +98,19 @@ S.loadRemoteDocs = function () {
 $(document).ready(function() {
   S.set.Docs = new S.make.Docs();
   if ((typeof S.showDocs === 'boolean') && S.showDocs) {
+      if (typeof S.local === 'boolean') {
+	  if (S.local) {
+	      S.loadLocalDocs();
+	  } else {
+	      S.loadRemoteDocs();
+	  }
+      } else {
+	  S.loadLocalDocs();
+	  S.loadRemoteDocs();
+      }
+  } else {
     setTimeout(S.loadLocalDocs, 0);
     setTimeout(S.loadRemoteDocs, 500);
-  } else {
-    S.loadLocalDocs();
-    S.loadRemoteDocs();
   }
 });
 
