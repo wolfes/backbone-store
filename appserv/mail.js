@@ -2,7 +2,7 @@
 
 var allMail = exports.allMail = function() {
     var mail = [];
-for (var i = 0; i < 200; i++) {
+for (var i = 0; i < 300; i++) {
   mail.push({
     'eid': i,
     'to': 'Alice',
