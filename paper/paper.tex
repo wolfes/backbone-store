@@ -278,4 +278,19 @@ retrieving collections are much less pronounced when loading from local
 storage; again, much of the overhead in loading locally is fixed, and caused
 simply by accessing the local store.
 
+\section{Conclusion}
+
+This report described our extension for the Backbone.js library, which
+simplifies the task of persisting a collection of data models to a web
+browser's local storage, in order to facilitate faster load times and reduced
+server load. This extension provides an API to facilitate saving and loading
+collections on demand, using one of two different persistence strategies. We
+tested our extension using three different demo applications, with different
+characteristics for the data that is being used by the application. Our tests
+varied both the number of data items in a single collection and the size of
+each data itme, to simulate a number of different application scenarios. Our
+tests showed that our extension is effective at reducing the load times in many
+different scenarios, resulting in an improved experience for the application
+user.
+
 \end{document}
