@@ -31,3 +31,22 @@ plot(quantities, note.server, type='b', pch=0, xlab='Quantity', ylab='Load Time 
 lines(quantities, note.each, type='b', pch=1)
 lines(quantities, note.one, type='b', pch=2)
 legend('topleft', legend=c('Server', 'Key per Model', 'Key per Collection'), pch=c(0, 1, 2), inset=0.03)
+
+
+
+# Bar plots for by-size data
+bar.one.10    <- c(4.53, 5.6, 5.467)
+bar.each.10   <- c(10.667, 12.8, 8.867)
+bar.server.10 <- c(13.667, 27.834, 40.267)
+bar.10 <- data.frame(one=bar.one.10, each=bar.each.10, server=bar.server.10)
+
+bar.one.300    <- c(66.733, 116.6, 107.2)
+bar.each.300   <- c(211.067, 246, 200.067)
+bar.server.300 <- c(68.133, 284.067, 848.234)
+bar.300 <- data.frame(one=bar.one.300, each=bar.each.300, server=bar.server.300)
+
+# Plots!
+par(mfrow=c(1,2))
+
+barplot(as.matrix(bar.10), names=c('Per-Collection', 'Per-Model', 'Server'), beside=T, legend.text=c('Note', 'Email', 'Document'), ylab='Load time (ms)', main='A. 10-Item Collections', args.legend=list(x='topleft', inset=0.05))
+barplot(as.matrix(bar.300), names=c('Per-Collection', 'Per-Model', 'Server'), beside=T, legend.text=c('Note', 'Email', 'Document'), ylab='Load time (ms)', main='B. 300-Item Collections', args.legend=list(x='topleft', inset=0.05))
