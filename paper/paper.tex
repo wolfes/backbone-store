@@ -16,19 +16,16 @@ Data}
 \begin{abstract}
 Web applications that require re-fetching data from a server
 can see an improved load time by storing old data in the client's browser,
-requiring only new data to be retrieved from the server. In this paper, we present Backbone-Store: a local caching API that extends Backbone.js and uses the HTML5 localStorage API to offer web developers two different persistent strategies that easily store and reload a web application's data. To evaluate the API,  we analyze three simple applications to measure the performance characteristics of loading documents, medium-sized emails, and small notes from both the local storage on the client's browser and from the server. As expected, we find that local storage performs
-faster than loading the same data from the server. This time difference
-increases for larger quantities of the same type of item, suggesting that local storage becomes more advantageous as the amount of data loaded by an application increases. Furthermore, we examine the time required for an application to save data to the local storage, comparing the relative save-time performance of our two persistence strategies and finding one to be more suitable for small updates to the application's data and the other to be more suitable for larger updates.
+requiring only new data to be retrieved from the server. In this paper, we present Backbone-Store: a local caching API that extends Backbone.js and uses the HTML5 localStorage API to offer web developers two different persistence strategies that easily store and reload a web application's data. To evaluate the API,  we analyze three simple applications to measure the performance characteristics of loading documents, medium-sized emails, and small notes from both the local storage on the client's browser and from the server. As expected, we find that our two implementations of local storage both perform faster than loading the same data from the server, with the one-key-per-collection persistence strategy outperforming the one-key-per-model strategy. This time difference increases for larger quantities of the same type of item, suggesting that local storage becomes more advantageous as the amount of data loaded by an application increases. Furthermore, we examine the time required for an application to save data to the local storage, comparing the relative save-time performance of our two persistence strategies and finding one to be more suitable for small updates to the application's data and the other to be more suitable for larger updates.
 \end{abstract}
 
 \section{Introduction}
 
 HTML5 presents new options for storing a web application's data in the client's
-browser. The capacity for a web application to efficiently store information
-that can be used the next time a user views the website presents two major
-benefits. The first benefit is that the web application can store information
-that it can use to help speed up the time it takes to present the user
-interface for the web application. Users are sensitive to the time it takes a
+browser. Efficient local storage presents two major
+benefits. The first benefit is that web applications can store information that is loaded and saved
+frequently to help speed up the time it takes to present the user
+interface. Users are sensitive to the time it takes a
 web application to load, with slower applications causing users to navigate
 away or think less of the site. The second benefit is that the web applications
 can request less data from a server if it can store information that it
@@ -66,13 +63,13 @@ load saved data back into the application's models or collections. There is
 also a choice of how the data is stored for collections of models. All models
 can be stored as a bundle under one key in the localStorage (Strategy 1), or they can be
 stored individually, with each model under its own key in the localStorage (Strategy 2).
-These two local storage options provide flexibility for different use cases where one choice may be
+These two persistence strategies provide flexibility for different use cases where one option may be
 significantly better than the other, depending on the number of items and
-the amount of data being stored. We evaluate optimal conditions for each strategy in the Results section.
+the amount of data being stored. We evaluate the performance of these two strategies in the Results section.
 
 \section{The Problem Space}
 
-The first main problem is the diversity of data types stored by web applications. Indeed, Web applications vary in both the quantity (number of items) and size of data they must request from a
+The first main problem is the diversity of data types stored by web applications. Indeed, Web applications vary in both the quantity and size of data item they must request from a
 server before loading the user interface, causing possible variance in the load and save times of various persistence strategies.  For example, some applications might require only a few
 large items, such as showing a user a menu of large documents they can edit. On
 the opposite end of both the quantity and size spectra, a note-taking application might request many
@@ -126,12 +123,12 @@ choose from two persistence strategies for locally cached data:
 
 Second, we conduct a performance evaluation of load times for data
 stored locally (using the aforementioned two strategies) compared to data
-stored remotely for three types of web applications that differ in data size
-per item (70 bytes, 900 bytes, 3200 bytes) and data quantity (10, 50, 100, 200,
+stored remotely for three types of web applications that differ in item size
+per item (70 bytes, 900 bytes, 3200 bytes) and item quantity (10, 50, 100, 200,
 300 items per collection) and highlight conditions where local storage is most
 advantageous.
 
-We hypothesize that Backbone-Store can be used by web applications to increase the speed required to load a web application's user interface by providing faster access to items of varying quantity and size.
+We hypothesize that Backbone-Store can be used by web applications to increase the speed required to load a web application's user interface by providing faster access to items of varying quantities and sizes.
 
 \section{Evaluation}
 
@@ -156,7 +153,7 @@ execution and skew the load time.
 
 We created a simple server using Node.js \cite{node} for our test applications. Our timing
 application presented a blank page which loaded a particular number of items
-for each of the three types of models into collections from both localStorage
+for each of the three types of models (Documents, Emails, Notes) into collections from both local storage
 and from server requests. Three request URLs allowed the web application to use
 Ajax to query the server for the data needed for each type of model. To easily
 collect a large enough sample size of timing data, we had the server record
@@ -216,7 +213,7 @@ items from the local store).
 
 Loading large items, such as documents, from the local storage (shown in Figure
 \ref{fig:line}A) gives the results that we expect. Load times for both
-local storage strategies, and from the server, grow linearly with the number of
+local persistence strategies, and from the server, grow linearly with the number of
 items in the collection, and thus with the amount of data retrieved. Both local
 persistence methods are faster than retrieving items from the local storage.
 The one-key-per-model method is slightly slower than the one-key-per-collection
@@ -241,12 +238,12 @@ load-time benefits of local storage.
 
 It is of note that users typically perceive lag in an interface when an
 operation takes more than 100 milliseconds to complete. In all of our tests,
-the key-per-collection persistence strategy was able to keep the load time for the
+the one-key-per-collection persistence strategy was able to keep the load time for the
 collection below or very near 100 ms, meaning that users would perceive the
 load time as nearly instantaneous. On the other hand, the load time from the server is much
 higher, so users would perceive noticeable lag while waiting for the application
 to load. This demonstrates that our extension provides application users with
-an improved user experience, due to faster application load times. 
+an improved user experience, due to noticeably faster application load times. Additionally, moving storage from server to client will also reduce the load on the server, allowing it to take more requests from applications, further enhancing its performance and speed.
 
 \begin{figure}[th]
   \centering
@@ -290,18 +287,14 @@ strategy must write the entire collection to localStorage in either case.
 
 \section{Conclusion}
 
-This report describes our extension for the Backbone.js library, which
+This report describes Backbone-Store: our extension for the Backbone.js library, which
 simplifies the task of persisting a collection of data models to a web
 browser's local storage, in order to facilitate faster load times and reduce
-server load. This extension provides an API to facilitate saving and loading
-collections on demand, using one of two different persistence strategies. We
-test our extension using three different demo applications, with different
-characteristics for the data that are being used by the application. Our tests
+server load. This extension provides an API that automatically saves and loads collections on demand, using one of two different persistence strategies: one-key-per-model and one-key-per-collection. We test our extension using three different demo applications (Documents, Emails, Notes), with different characteristics for the data that are being used by the application. Our tests
 vary both the number of data items in a single collection and the size of
-each data item, to simulate a number of different application scenarios. Our
-tests show that our extension is effective at reducing the load times in many
-different scenarios, resulting in an improved experience for the application
-user.
+each data item, to simulate a number of different application scenarios. Finally, our
+test applications show that Backbone-Store is effectively and significantly reduces the load times in many different scenarios, resulting in an improved experience for the application
+user and a more convenient, simpler programming experience for application developers. 
 
 \bibliographystyle{plain}
 \bibliography{paper}
