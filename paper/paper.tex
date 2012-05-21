@@ -39,9 +39,9 @@ application's requests.
 \section{Related Work}
 
 There are several new client-side data storage options for web applications
-using HTML5. Web SQL provides a database interface similar to SQLite and supports
+using HTML5. Web SQL \cite{websql} provides a database interface similar to SQLite and supports
 transactions. However, Web SQL is not supported by all of the major browsers,
-with Firefox in particular refusing to ever support Web SQL. HTML5 also offers two key-value storage options called sessionStorage and localStorage, which provide a simple API (\verb=saveItem(key, value)=, \verb=getItem(key)=,
+with Firefox in particular refusing to ever support Web SQL. HTML5 also offers two key-value storage options called sessionStorage and localStorage \cite{localstorage}, which provide a simple API (\verb=saveItem(key, value)=, \verb=getItem(key)=,
 \verb=removeItem(key)=, and \verb=clear()=) for storing key-value pairs. 
 Session storage stores data only while a user is viewing a website, and
 automatically clears the data when a user navigates away from the site. Local
@@ -164,7 +164,8 @@ responses from the web application and print out batches of times for 15
 requests to a CSV file. This allowed us to rapidly collect timing data for each
 scenario.
 
-Measuring Load Time
+\subsection{Measuring Load Time}
+
 Each of the three web applications records how long it takes the application to
 load the data for each of the three test applications. For the time it takes to
 load data from the server, the timer is started just before an Ajax request
@@ -176,7 +177,8 @@ a collection. The data is then fetched from local storage and parsed from a JSON
 string into an array of objects, which is then added to the collection before
 finally stopping the timer.
 
-Measuring Save Time
+\subsection{Measuring Save Time}
+
 Finally, we tested save times for our two local storage strategies, by
 creating collections with different numbers of items and measuring the time to
 save each collection to local storage. Also, we believe that our two strategies
