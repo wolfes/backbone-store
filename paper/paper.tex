@@ -18,7 +18,7 @@ Web applications that require re-fetching the same data from a server
 can see an improved load time by storing old data in the client's browser,
 requiring only new data to be retrieved from the server. In this paper, we present Backbone-Store: a local caching API that extends Backbone.js and uses the HTML5 localStorage API to offer web developers two different persistent strategies that easily store and reload a web application's data. To evaluate the API,  we analyze three simple applications to measure the performance characteristics of loading documents, medium-sized emails, and small notes from both the local storage on the client's browser and from the server. As expected, we find that local storage performs
 faster than loading the same data from the server. This time difference
-increases for larger quantities of the same type of item, suggesting that local storage becomes more advantageous as the amount of data loaded by an application increases. Furthermore, we examine the time required for an application to save data to the local storage, comparing the relative save-time performance of our two persistence strategies, and finding one to be more suitable for small updates to the application's data, and the other to be more suitable for larger updates.
+increases for larger quantities of the same type of item, suggesting that local storage becomes more advantageous as the amount of data loaded by an application increases. Furthermore, we examine the time required for an application to save data to the local storage, comparing the relative save-time performance of our two persistence strategies and finding one to be more suitable for small updates to the application's data and the other to be more suitable for larger updates.
 \end{abstract}
 
 \section{Introduction}
@@ -70,19 +70,13 @@ the amount of data being stored. We evaluate optimal conditions for each strateg
 
 \section{The Problem Space}
 
-Web applications vary in both the quantity and type of data they must request from a
-server before presenting a user interface to a user. Two primary metrics
-closely related to our project are the number of individual items requested,
-and the size of each of these items. Some applications might require only a few
+The first main problem is the diversity of data types stored by web applications. Indeed, Web applications vary in both the quantity (number of items) and size of data they must request from a
+server before loading the user interface, causing possible variance in the load and save times of various persistence strategies.  For example, some applications might require only a few
 large items, such as showing a user a menu of large documents they can edit. On
-the opposite end of both spectra, a note-taking application might request many
-relatively small notes.
+the opposite end of both the quantity and size spectra, a note-taking application might request many
+relatively small notes. We address the varying data characteristics by evaluating the load and save times of each persistent strategy for applications using data of varying quantities and sizes and highlight cases where each strategy prevails.
 
-HTML5's localStorage presents a key-value storage API for storing a web
-application's persistent information, using string keys and string or integer
-values. However, Backbone.js collections and models store their data in
-Javascript objects. Using the native JSON parse and stringify methods that
-convert objects to strings and back again, the library we extend can easily
+The second problem is the challenge of transforming application data stored by Backbone.js into a form that readily interfaces with HTML5's localStorage API. Whereas Backbone.js stores models and collections as Javascript objects, the HTML5 localStorage requires objects to be represented as string keys and string or integer values. We resolve this problem by using the native JSON parse and stringify methods that convert objects to strings and back again, allowing our API to easily
 store the data from the models and collections as strings in localStorage, and
 convert the stored strings back to their original object representations.
 
