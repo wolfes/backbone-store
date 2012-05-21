@@ -2,6 +2,7 @@
 \usepackage{fullpage}
 \usepackage{setspace}
 \usepackage{graphicx}
+\usepackage{url}
 
 \doublespacing
 
@@ -46,10 +47,10 @@ application's requests.
 \section{Related Work}
 
 There are several new client-side data storage options for web applications
-with HTML5. Web SQL presents a database API similar to SQLite and provides
+with HTML5. Web SQL \cite{websql} presents a database API similar to SQLite and provides
 transactions. However, Web SQL is not supported by all of the major browsers,
 with Firefox in particular refusing to ever support Web SQL. There are two
-key-value storage options, called sessionStorage and localStorage, that have a
+key-value storage options, called sessionStorage and localStorage \cite{localstorage}, that have a
 simple API (\verb=saveItem(key, value)=, \verb=getItem(key)=,
 \verb=removeItem(key)=, and \verb=clear()=) for storing key-value pairs.
 Session storage stores data only while a user is viewing a website, and
@@ -61,7 +62,7 @@ the best solution for cross-browser support and persistent storage.
 Backbone-store, the project described in this paper, presents a new way for web
 application programmers to easily save their web application's data on the
 client to take advantage of the two benefits described above. This project is
-an extension of the pure-Javascript Backbone.js library, which is used by many
+an extension of the pure-Javascript Backbone.js \cite{backbone} library, which is used by many
 companies to create web applications for browsers and mobile devices. Data
 stored in Backbone.js applications are generally placed in either a Model
 object or a Collection object, which is an ordered list of objects of one type
@@ -203,7 +204,7 @@ a collection. The data is then fetched from local storage and parsed from a JSON
 string into an array of objects, which is then added to the collection before
 finally stopping the timer.
 
-We created a simple server using Node.js for our test applications. Our timing
+We created a simple server using Node.js \cite{node} for our test applications. Our timing
 application presented a blank page which loaded a particular number of items
 for each of the three types of models into collections from both localStorage
 and from server requests. Three request URLs allowed the web application to use
@@ -329,5 +330,8 @@ each data itme, to simulate a number of different application scenarios. Our
 tests showed that our extension is effective at reducing the load times in many
 different scenarios, resulting in an improved experience for the application
 user.
+
+\bibliographystyle{plain}
+\bibliography{paper}
 
 \end{document}
