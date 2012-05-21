@@ -1,4 +1,3 @@
-% vim: set tw=79 ft=tex :
 \documentclass[12pt]{article}
 \usepackage{fullpage}
 \usepackage{setspace}
@@ -15,17 +14,14 @@ Data}
 
 \begin{abstract}
 Efficiently storing web application data in the client's browser was a
-challenging task until the recent HTML5 specification. Web applications that
-require fetching the same data that has been previously fetched from a server
-can see an improved load time by storing this old data in the client's browser,
+challenging task until the recent HTML5 specification. With this new local storage spec, Web applications that require re-fetching the same data from a server
+can see an improved load time by storing old data in the client's browser,
 requiring only the new data to be retrieved from the server. For our project,
-we extended Backbone.js to allow a web developer to easily store and reload a
-web application's data using the HTML5 localStorage API. We analyze three
-simple applications to study the performance characteristics of loading large
+we extended Backbone.js to create our own local caching API to help web developers easily store and reload a web application's data using the HTML5 localStorage API. To evaluate the API,  we analyze three simple applications to measure the performance characteristics of loading large
 documents, medium-sized emails, and small notes from both the local storage on
-the client's browser and on the server. We find that local storage performs
+the client's browser and from the server. As expected, we find that local storage performs
 faster than loading the same data from the server. This time difference
-increases for larger quantities of the same type of item. Since the threshold
+increases for larger quantities of the same type of item, suggesting that local storage become more advantageous as the amount of loaded data increases. Furthermore, given that the threshold
 for users perceiving lag is about 100 milliseconds, we show that there are
 real-world use cases where loading data from a server would cause users to
 perceive lag, while loading the same data from localStorage would be perceived
@@ -193,7 +189,7 @@ local storage
 \item record the load time.
 \end{enumerate}
 
-Note that 1) and 2) are separated by a delay so as not to overlap in
+Note that Step 1 and 2 are separated by a delay so as not to overlap in
 execution and skew the load time.
 
 Each of the three web applications records how long it takes the application to
