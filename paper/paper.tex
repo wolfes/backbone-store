@@ -47,10 +47,10 @@ application's requests.
 \section{Related Work}
 
 There are several new client-side data storage options for web applications
-using HTML5. Web SQL presents a database API similar to SQLite and provides
+using HTML5. Web SQL provides a database interface similar to SQLite and supports
 transactions. However, Web SQL is not supported by all of the major browsers,
-with Firefox in particular refusing to ever support Web SQL. [NEED TRANSITION HERE] HTML5 provides two key-value storage options, called sessionStorage and localStorage, that have a simple API (\verb=saveItem(key, value)=, \verb=getItem(key)=,
-\verb=removeItem(key)=, and \verb=clear()=) for storing key-value pairs.
+with Firefox in particular refusing to ever support Web SQL. HTML5 also offers two key-value storage options called sessionStorage and localStorage, that have a simple API (\verb=saveItem(key, value)=, \verb=getItem(key)=,
+\verb=removeItem(key)=, and \verb=clear()=) for storing key-value pairs. 
 Session storage stores data only while a user is viewing a website, and
 automatically clears the data when a user navigates away from the site. Local
 storage persists data until it is deleted by the application or by the user
@@ -58,36 +58,23 @@ clearing all of the website's information from the browser. In this paper, we us
 
 Backbone-store, the project described in this paper, presents a new way for web
 application programmers to easily save their web application's data on the
-client side to take advantage of the two benefits described in the Introduction. This project is
-an extension of the pure-Javascript Backbone.js \cite{backbone} library, which is used by many
-companies to create web applications for browsers and mobile devices. Data
+client side to take advantage of the benefits of local storage (as described in the Introduction). This project is an extension of the pure-Javascript Backbone.js \cite{backbone} library, which is used by many companies (e.g., Four Square, Walmart Mobile, Pandora, Trello, etc.) to create web applications for browsers and mobile devices. Data
 stored in Backbone.js applications are generally placed in either a Model
 object or a Collection object, which is an ordered list of objects of one type
 of Model. Backbone.js also provides View objects for managing the UI based on
 the state of the Model or Collection objects.
 
-Currently, for a web programmer to store data on the client side while using
-Backbone.js, he/she would need to write a custom storage solution to save the
-data from each of their models and/or collections to HTML5's localStorage or
-another local storage option. Backbone-store simplifies the process of saving
-information from a model or collection such that it can be reloaded into the
+Currently, web programmers wishing to employ local caching using Backbone.js would need to write a custom storage solution (including custom libraries and scripts tailored to the particular application) to save the data from each of their models and/or collections to HTML5's localStorage or another local storage option. Backbone-store simplifies this process by providing an API that automates the local caching process such that information from a saved model or collection can be reloaded into the
 models and collections the next time the web application starts. With a few new
 methods added to the Model and Collection objects, a web developer can choose
 when a copy of a model's or collection's data should be stored, and when to
 load saved data back into the application's models or collections. There is
 also a choice of how the data is stored for collections of models. All models
-can be stored as a bundle under one key in the localStorage, or they can be
-stored individually, with each model under its own key in the localStorage.
-This provides flexibility for different use cases where one option may be
-significantly better than the other one depending on the number of items and
-the amount of data being stored.
-
-To test our new library to analyze the advantage of using it, we built three
-test applications to time how long it takes to load each of three different
-size of data items from both the localStorage and the server. We discovered
-that the localStorage generally responded faster than a typical server, and
-that the difference in response times was more noticeable when larger
-quantities of data are being stored.
+can be stored as a bundle under one key in the localStorage (Strategy 1), or they can be
+stored individually, with each model under its own key in the localStorage (Strategy 2).
+These two local storage options provide flexibility for different use cases where one choice may be
+significantly better than the other, depending on the number of items and
+the amount of data being stored. We evaluate optimal conditions for each strategy in the Results section.
 
 \section{The Problem Space}
 
