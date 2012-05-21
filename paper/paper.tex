@@ -213,13 +213,15 @@ responses from the web application and print out batches of times for 15
 requests to a CSV file. This allowed us to rapidly collect timing data for each
 scenario.
 
-Finally, we also tested update times for our two local storage strategies. We did
-this by creating collections with different numbers of items, and measuring the
-time to save each collection to local storage. Also, to test different save-time
-characteristics of our different persistence strategies, we measured the time
-to resave the collection after adding one model. We predict that the
-one-key-per-model local storage strategy will allow faster updates, by making it
-possible to save only those models that were changed or added since the last
+Finally, we also tested update times for our two local storage strategies, by
+creating collections with different numbers of items and measuring the time to
+save each collection to local storage. Also, we believe that our two strategies
+will behave differently in different situations (i.e., saving an entire
+collection for the first time, and saving a collection again after having
+changed or added only a few models); we test this by measuring the time to
+resave the collection after adding one new model. We predict that the
+one-key-per-model local storage strategy will allow faster updates, by making
+it possible to save only those models that were changed or added since the last
 save.
 
 \section{Results}
