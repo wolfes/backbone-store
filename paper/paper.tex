@@ -16,12 +16,11 @@ Data}
 Efficiently storing web application data in the client's browser was a
 challenging task until the recent HTML5 specification. With this new local storage spec, Web applications that require re-fetching the same data from a server
 can see an improved load time by storing old data in the client's browser,
-requiring only the new data to be retrieved from the server. For our project,
-we extended Backbone.js to create our own local caching API to help web developers easily store and reload a web application's data using the HTML5 localStorage API. To evaluate the API,  we analyze three simple applications to measure the performance characteristics of loading large
+requiring only the new data to be retrieved from the server. In this paper, we present Backbone-Store: a local caching API that extends Backbone.js to help web developers easily store and reload a web application's data using the HTML5 localStorage API. To evaluate the API,  we analyze three simple applications to measure the performance characteristics of loading large
 documents, medium-sized emails, and small notes from both the local storage on
 the client's browser and from the server. As expected, we find that local storage performs
 faster than loading the same data from the server. This time difference
-increases for larger quantities of the same type of item, suggesting that local storage become more advantageous as the amount of loaded data increases. Furthermore, given that the threshold
+increases for larger quantities of the same type of item, suggesting that local storage becomes more advantageous as the amount of data loaded by an application increases. Furthermore, given that the threshold
 for users perceiving lag is about 100 milliseconds, we show that there are
 real-world use cases where loading data from a server would cause users to
 perceive lag, while loading the same data from localStorage would be perceived
@@ -46,21 +45,20 @@ application's requests.
 \section{Related Work}
 
 There are several new client-side data storage options for web applications
-with HTML5. Web SQL presents a database API similar to SQLite and provides
+using HTML5. Web SQL presents a database API similar to SQLite and provides
 transactions. However, Web SQL is not supported by all of the major browsers,
-with Firefox in particular refusing to ever support Web SQL. There are two
+with Firefox in particular refusing to ever support Web SQL. [NEED TRANSITION HERE] HTML5 provides two
 key-value storage options, called sessionStorage and localStorage, that have a
 simple API (\verb=saveItem(key, value)=, \verb=getItem(key)=,
 \verb=removeItem(key)=, and \verb=clear()=) for storing key-value pairs.
 Session storage stores data only while a user is viewing a website, and
 automatically clears the data when a user navigates away from the site. Local
 storage persists data until it is deleted by the application or by the user
-clearing all of the website's information from the browser. Local storage is
-the best solution for cross-browser support and persistent storage.
+clearing all of the website's information from the browser. In this paper, we use localStorage to implement our local caching strategies because it provides persistent storage (unlike sessionStorage) and is supported by all the major web browsers (unlike Web SQL). 
 
 Backbone-store, the project described in this paper, presents a new way for web
 application programmers to easily save their web application's data on the
-client to take advantage of the two benefits described above. This project is
+client side to take advantage of the two benefits described in the Introduction. This project is
 an extension of the pure-Javascript Backbone.js library, which is used by many
 companies to create web applications for browsers and mobile devices. Data
 stored in Backbone.js applications are generally placed in either a Model
