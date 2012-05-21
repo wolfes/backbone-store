@@ -70,8 +70,6 @@ the amount of data being stored. We evaluate optimal conditions for each strateg
 
 \section{The Problem Space}
 
-We hypothesize that Backbone-Store can be used by web applications to increase the speed required to load a web application's user interface by providing faster access to items of varying quantity and size.
-
 Web applications vary in both the quantity and type of data they must request from a
 server before presenting a user interface to a user. Two primary metrics
 closely related to our project are the number of individual items requested,
@@ -114,16 +112,16 @@ persistence strategy identified by the collection to save the sorted list of
 models into the localStorage. To load the data for a model or collection from
 localStorage, a new method called ``\verb=loadFromStore='' has been added to
 Backbone.Model and Backbone.Collection. For models, this simply loads the data
-from localStorage into the model; for collections; this method identifies the
+from localStorage into the model; for collections, this method identifies the
 persistence strategy used by the collection and uses the correct retrieval
 method to fetch the data from localStorage, parse it back into an array of
 models, and add them to the collection.
 
 \section{Contribution}
 
-Our project makes two main contributions. First, we present an API that
+Our project makes two main contributions. First, we create an API that
 automates local caching for web applications. This API will allow developers to
-choose from two storage strategies for locally cached data:
+choose from two persistence strategies for locally cached data:
 
 \begin{enumerate}
 \item Associate one key per collection
@@ -137,13 +135,7 @@ per item (70 bytes, 900 bytes, 3200 bytes) and data quantity (10, 50, 100, 200,
 300 items per collection) and highlight conditions where local storage is most
 advantageous.
 
-We find that our API provides superior load performance for data
-stored locally vs.\ remotely under all data sizse and quantity conditions except
-for the case of loading many small items. Furthermore, we find that our
-implementation of local caching exhibits the greatest speedup when data is
-stored using the first strategy, with one key-value pair per collection. This
-suggests that local caching is most advantageous for applications that load
-data of larger size, and moderate to large quantity.
+We hypothesize that Backbone-Store can be used by web applications to increase the speed required to load a web application's user interface by providing faster access to items of varying quantity and size.
 
 \section{Evaluation}
 
@@ -157,9 +149,9 @@ notes, we used a short string of 70 characters (~70 bytes). These character leng
 length of the JSON string that represents each item. The three applications
 performed the same task: 
 \begin{enumerate}
-\item load some number of a particular type of item (e.g., doc, email, note) from
+\item Load some number of a particular type of item (e.g., doc, email, note) from
 local storage
-\item load some number of a particular type of item (e.g., doc, email, note) from the server
+\item Load some number of a particular type of item (e.g., doc, email, note) from the server
 \item record the load time.
 \end{enumerate}
 
@@ -300,16 +292,16 @@ strategy must write the entire collection to localStorage in either case.
 
 \section{Conclusion}
 
-This report described our extension for the Backbone.js library, which
+This report describes our extension for the Backbone.js library, which
 simplifies the task of persisting a collection of data models to a web
-browser's local storage, in order to facilitate faster load times and reduced
+browser's local storage, in order to facilitate faster load times and reduce
 server load. This extension provides an API to facilitate saving and loading
 collections on demand, using one of two different persistence strategies. We
-tested our extension using three different demo applications, with different
-characteristics for the data that is being used by the application. Our tests
-varied both the number of data items in a single collection and the size of
-each data itme, to simulate a number of different application scenarios. Our
-tests showed that our extension is effective at reducing the load times in many
+test our extension using three different demo applications, with different
+characteristics for the data that are being used by the application. Our tests
+vary both the number of data items in a single collection and the size of
+each data item, to simulate a number of different application scenarios. Our
+tests show that our extension is effective at reducing the load times in many
 different scenarios, resulting in an improved experience for the application
 user.
 
