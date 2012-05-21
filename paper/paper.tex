@@ -54,7 +54,9 @@ client side to take advantage of the benefits of local storage (as described in 
 stored in Backbone.js applications are generally placed in either a Model
 object or a Collection object, which is an ordered list of objects of one type
 of Model. Backbone.js also provides View objects for managing the UI based on
-the state of the Model or Collection objects.
+the state of the Model or Collection objects. We used Backbone.js as a base due
+to its aforementioned popularity with many web developers, and because it
+provides a very good model for developers that is easy to modify with our extensions.
 
 Currently, web programmers wishing to employ local caching using Backbone.js would need to write a custom storage solution (including custom libraries and scripts tailored to the particular application) to save the data from each of their models and/or collections to HTML5's localStorage or another local storage option. Backbone-store simplifies this process by providing an API that automates the local caching process such that information from a saved model or collection can be reloaded into the
 models and collections the next time the web application starts. With a few new
