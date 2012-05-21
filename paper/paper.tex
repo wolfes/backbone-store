@@ -17,15 +17,16 @@ Data}
 Efficiently storing web application data in the client's browser was a
 challenging task until the recent HTML5 specification. With this new local storage spec, Web applications that require re-fetching the same data from a server
 can see an improved load time by storing old data in the client's browser,
-requiring only the new data to be retrieved from the server. In this paper, we present Backbone-Store: a local caching API that extends Backbone.js to help web developers easily store and reload a web application's data using the HTML5 localStorage API. To evaluate the API,  we analyze three simple applications to measure the performance characteristics of loading large
+requiring only the new data to be retrieved from the server. In this paper, we present Backbone-Store: a local caching API that extends Backbone.js to help web developers easily store and reload a web application's data using the HTML5 localStorage API, and two different persistence strategies. To evaluate the API,  we analyze three simple applications to measure the performance characteristics of loading large
 documents, medium-sized emails, and small notes from both the local storage on
 the client's browser and from the server. As expected, we find that local storage performs
 faster than loading the same data from the server. This time difference
-increases for larger quantities of the same type of item, suggesting that local storage becomes more advantageous as the amount of data loaded by an application increases. Furthermore, given that the threshold
-for users perceiving lag is about 100 milliseconds, we show that there are
-real-world use cases where loading data from a server would cause users to
-perceive lag, while loading the same data from localStorage would be perceived
-as instantaneous.
+increases for larger quantities of the same type of item, suggesting that local storage becomes more advantageous as the amount of data loaded by an application increases. %Furthermore, given that the threshold
+%for users perceiving lag is about 100 milliseconds, we show that there are
+%real-world use cases where loading data from a server would cause users to
+%perceive lag, while loading the same data from localStorage would be perceived
+%as instantaneous.
+Futhermore, we examined the time required for an application to save data to the local storage, comparing the relative save-time performance of our two persistence strategies, and finding one to be more suitable for small updates to the application's data, and the other to be more suitable for larger updates.
 \end{abstract}
 
 \section{Introduction}
