@@ -2,6 +2,7 @@
 \usepackage{fullpage}
 \usepackage{setspace}
 \usepackage{graphicx}
+\usepackage{url}
 
 \doublespacing
 
@@ -47,9 +48,7 @@ application's requests.
 There are several new client-side data storage options for web applications
 using HTML5. Web SQL presents a database API similar to SQLite and provides
 transactions. However, Web SQL is not supported by all of the major browsers,
-with Firefox in particular refusing to ever support Web SQL. [NEED TRANSITION HERE] HTML5 provides two
-key-value storage options, called sessionStorage and localStorage, that have a
-simple API (\verb=saveItem(key, value)=, \verb=getItem(key)=,
+with Firefox in particular refusing to ever support Web SQL. [NEED TRANSITION HERE] HTML5 provides two key-value storage options, called sessionStorage and localStorage, that have a simple API (\verb=saveItem(key, value)=, \verb=getItem(key)=,
 \verb=removeItem(key)=, and \verb=clear()=) for storing key-value pairs.
 Session storage stores data only while a user is viewing a website, and
 automatically clears the data when a user navigates away from the site. Local
@@ -59,7 +58,7 @@ clearing all of the website's information from the browser. In this paper, we us
 Backbone-store, the project described in this paper, presents a new way for web
 application programmers to easily save their web application's data on the
 client side to take advantage of the two benefits described in the Introduction. This project is
-an extension of the pure-Javascript Backbone.js library, which is used by many
+an extension of the pure-Javascript Backbone.js \cite{backbone} library, which is used by many
 companies to create web applications for browsers and mobile devices. Data
 stored in Backbone.js applications are generally placed in either a Model
 object or a Collection object, which is an ordered list of objects of one type
@@ -201,7 +200,7 @@ a collection. The data is then fetched from local storage and parsed from a JSON
 string into an array of objects, which is then added to the collection before
 finally stopping the timer.
 
-We created a simple server using Node.js for our test applications. Our timing
+We created a simple server using Node.js \cite{node} for our test applications. Our timing
 application presented a blank page which loaded a particular number of items
 for each of the three types of models into collections from both localStorage
 and from server requests. Three request URLs allowed the web application to use
@@ -211,13 +210,15 @@ responses from the web application and print out batches of times for 15
 requests to a CSV file. This allowed us to rapidly collect timing data for each
 scenario.
 
-Finally, we also tested update times for our two local storage strategies. We did
-this by creating collections with different numbers of items, and measuring the
-time to save each collection to local storage. Also, to test different save-time
-characteristics of our different persistence strategies, we measured the time
-to resave the collection after adding one model. We predict that the
-one-key-per-model local storage strategy will allow faster updates, by making it
-possible to save only those models that were changed or added since the last
+Finally, we also tested update times for our two local storage strategies, by
+creating collections with different numbers of items and measuring the time to
+save each collection to local storage. Also, we believe that our two strategies
+will behave differently in different situations (i.e., saving an entire
+collection for the first time, and saving a collection again after having
+changed or added only a few models); we test this by measuring the time to
+resave the collection after adding one new model. We predict that the
+one-key-per-model local storage strategy will allow faster updates, by making
+it possible to save only those models that were changed or added since the last
 save.
 
 \section{Results}
@@ -325,5 +326,8 @@ each data itme, to simulate a number of different application scenarios. Our
 tests showed that our extension is effective at reducing the load times in many
 different scenarios, resulting in an improved experience for the application
 user.
+
+\bibliographystyle{plain}
+\bibliography{paper}
 
 \end{document}
