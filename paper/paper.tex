@@ -14,7 +14,7 @@ Data}
 \maketitle
 
 \begin{abstract}
-Web applications that require re-fetching the same data from a server
+Web applications that require re-fetching data from a server
 can see an improved load time by storing old data in the client's browser,
 requiring only new data to be retrieved from the server. In this paper, we present Backbone-Store: a local caching API that extends Backbone.js and uses the HTML5 localStorage API to offer web developers two different persistent strategies that easily store and reload a web application's data. To evaluate the API,  we analyze three simple applications to measure the performance characteristics of loading documents, medium-sized emails, and small notes from both the local storage on the client's browser and from the server. As expected, we find that local storage performs
 faster than loading the same data from the server. This time difference
@@ -41,7 +41,7 @@ application's requests.
 There are several new client-side data storage options for web applications
 using HTML5. Web SQL provides a database interface similar to SQLite and supports
 transactions. However, Web SQL is not supported by all of the major browsers,
-with Firefox in particular refusing to ever support Web SQL. HTML5 also offers two key-value storage options called sessionStorage and localStorage, that have a simple API (\verb=saveItem(key, value)=, \verb=getItem(key)=,
+with Firefox in particular refusing to ever support Web SQL. HTML5 also offers two key-value storage options called sessionStorage and localStorage, which provide a simple API (\verb=saveItem(key, value)=, \verb=getItem(key)=,
 \verb=removeItem(key)=, and \verb=clear()=) for storing key-value pairs. 
 Session storage stores data only while a user is viewing a website, and
 automatically clears the data when a user navigates away from the site. Local
@@ -86,12 +86,12 @@ convert the stored strings back to their original object representations.
 
 There are two primary ways to save Backbone.js collections consisting of many
 models. One option is to turn the list of models into a JSON string and store
-this information under a single key in localStorage. The other option is to
-store each model in the collection under its own key. The main tradeoff in
+this information under a single key in localStorage (Strategy 1). The other option is to
+store each model in the collection under its own key (Strategy 2). The main tradeoff in
 these options is the time it takes to retrieve a single key from localStorage,
 and the time it takes to parse a JSON string.
 
-Our library extends Backbone.js by providing these two new persistence storage
+Our library extends Backbone.js to provide these two new persistence storage
 options. For a web developer to use these options, the developer chooses a
 default persistence strategy for all of their collections of models.
 Additionally, the developer can choose a persistence strategy for each
@@ -136,7 +136,7 @@ We hypothesize that Backbone-Store can be used by web applications to increase t
 \section{Evaluation}
 
 To evaluate the benefits of Backbone-store, we built three test applications to
-understand how our solution handled three different sizes of items requiring
+understand how our solution handles three different sizes (70 bytes, 900 bytes, 3200 bytes) of items requiring
 storage. To test large items that might represent a document, we used five
 paragraphs of Lorem ipsum, totaling 3265 characters per item (~3200 bytes). To examine
 medium size items such as emails, we used one paragraph of Lorem ipsum,
@@ -148,22 +148,11 @@ performed the same task:
 \item Load some number of a particular type of item (e.g., doc, email, note) from
 local storage
 \item Load some number of a particular type of item (e.g., doc, email, note) from the server
-\item record the load time.
+\item Record the load time.
 \end{enumerate}
 
 Note that Step 1 and 2 are separated by a delay so as not to overlap in
 execution and skew the load time.
-
-Each of the three web applications records how long it takes the application to
-load the data for each of the three test applications. For the time it takes to
-load data from the server, the timer is started just before an Ajax request
-asks the server for the data. When the data returns from the server, it is
-loaded into a Backbone.Collection object, and the timer is stopped after this
-is complete. To record the time to load the same data from local storage, the
-timer is started when just before the \verb=loadFromStore= method is called by
-a collection. The data is then fetched from local storage and parsed from a JSON
-string into an array of objects, which is then added to the collection before
-finally stopping the timer.
 
 We created a simple server using Node.js \cite{node} for our test applications. Our timing
 application presented a blank page which loaded a particular number of items
@@ -175,12 +164,25 @@ responses from the web application and print out batches of times for 15
 requests to a CSV file. This allowed us to rapidly collect timing data for each
 scenario.
 
-Finally, we also tested update times for our two local storage strategies, by
+Measuring Load Time
+Each of the three web applications records how long it takes the application to
+load the data for each of the three test applications. For the time it takes to
+load data from the server, the timer is started just before an Ajax request
+asks the server for the data. When the data returns from the server, it is
+loaded into a Backbone.Collection object, and the timer is stopped after this
+is complete. To record the time to load the same data from local storage, the
+timer is started when just before the \verb=loadFromStore= method is called by
+a collection. The data is then fetched from local storage and parsed from a JSON
+string into an array of objects, which is then added to the collection before
+finally stopping the timer.
+
+Measuring Save Time
+Finally, we tested save times for our two local storage strategies, by
 creating collections with different numbers of items and measuring the time to
 save each collection to local storage. Also, we believe that our two strategies
 will behave differently in different situations (i.e., saving an entire
 collection for the first time, and saving a collection again after having
-changed or added only a few models); we test this by measuring the time to
+changed or added only a few models). We test this by measuring the time to
 resave the collection after adding one new model. We predict that the
 one-key-per-model local storage strategy will allow faster updates, by making
 it possible to save only those models that were changed or added since the last
@@ -193,9 +195,9 @@ storage and the server for three types of applications, listed here, in
 decreasing order of data size:
 
 \begin{enumerate}
-\item Documents
-\item Email
-\item Notes
+\item Documents (3200 bytes)
+\item Emails (900 bytes)
+\item Notes (70 bytes)
 \end{enumerate}
 
 We load the data from each application in varying quantities (10, 50, 100, 200,
@@ -216,15 +218,15 @@ Loading large items, such as documents, from the local storage (shown in Figure
 \ref{fig:line}A) gives the results that we expect. Load times for both
 local storage strategies, and from the server, grow linearly with the number of
 items in the collection, and thus with the amount of data retrieved. Both local
-persistence methods are faster than retrieving items from the local storage;
-the one-key-per-model method is slightly slower than the one-key-per-collection
+persistence methods are faster than retrieving items from the local storage.
+The one-key-per-model method is slightly slower than the one-key-per-collection
 method due to the additional overhead of retrieving each model from the local
 storage separately.
 
 Repeating the same tests with medium-sized items, such as emails (shown in
 Figure \ref{fig:line}B), shows similar results; however, the difference in
 speed here is less pronounced. This is due to the constant overhead imposed by
-accessing the local storage; in the documents example, this overhead is masked
+accessing the local storage. In the documents example, this overhead is masked
 by the linear overhead of retrieving large amounts of data from storage. As in
 the previous example, the one-key-per-model method is still slightly slower,
 due to additional overhead from retrieving each model from the storage
@@ -239,12 +241,12 @@ load-time benefits of local storage.
 
 It is of note that users typically perceive lag in an interface when an
 operation takes more than 100 milliseconds to complete. In all of our tests,
-the key-per-model persistence strategy was able to keep the load time for the
+the key-per-collection persistence strategy was able to keep the load time for the
 collection below or very near 100 ms, meaning that users would perceive the
-load time as nearly instantaneous. The load time from the server is much
-higher, so users will perceive noticeable lag while waiting for the application
+load time as nearly instantaneous. On the other hand, the load time from the server is much
+higher, so users would perceive noticeable lag while waiting for the application
 to load. This demonstrates that our extension provides application users with
-an improved user experience, due to faster application load times.
+an improved user experience, due to faster application load times. 
 
 \begin{figure}[th]
   \centering
@@ -256,7 +258,7 @@ an improved user experience, due to faster application load times.
 
 Figure \ref{fig:bar} shows the effect of the size of individual items on the
 time to load collections both from storage and from the server. As expected,
-load times from the server are generally higher; also, the difference in load
+load times from the server are generally higher. Also, the difference in load
 time due to the size of the individual items is much more pronounced when
 loading from the server. Differences in load times due to item size for
 retrieving collections are much less pronounced when loading from local
