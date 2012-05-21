@@ -14,19 +14,11 @@ Data}
 \maketitle
 
 \begin{abstract}
-Efficiently storing web application data in the client's browser was a
-challenging task until the recent HTML5 specification. With this new local storage spec, Web applications that require re-fetching the same data from a server
+Web applications that require re-fetching the same data from a server
 can see an improved load time by storing old data in the client's browser,
-requiring only the new data to be retrieved from the server. In this paper, we present Backbone-Store: a local caching API that extends Backbone.js to help web developers easily store and reload a web application's data using the HTML5 localStorage API, and two different persistence strategies. To evaluate the API,  we analyze three simple applications to measure the performance characteristics of loading large
-documents, medium-sized emails, and small notes from both the local storage on
-the client's browser and from the server. As expected, we find that local storage performs
+requiring only new data to be retrieved from the server. In this paper, we present Backbone-Store: a local caching API that extends Backbone.js and uses the HTML5 localStorage API to offer web developers two different persistent strategies that easily store and reload a web application's data. To evaluate the API,  we analyze three simple applications to measure the performance characteristics of loading documents, medium-sized emails, and small notes from both the local storage on the client's browser and from the server. As expected, we find that local storage performs
 faster than loading the same data from the server. This time difference
-increases for larger quantities of the same type of item, suggesting that local storage becomes more advantageous as the amount of data loaded by an application increases. %Furthermore, given that the threshold
-%for users perceiving lag is about 100 milliseconds, we show that there are
-%real-world use cases where loading data from a server would cause users to
-%perceive lag, while loading the same data from localStorage would be perceived
-%as instantaneous.
-Futhermore, we examined the time required for an application to save data to the local storage, comparing the relative save-time performance of our two persistence strategies, and finding one to be more suitable for small updates to the application's data, and the other to be more suitable for larger updates.
+increases for larger quantities of the same type of item, suggesting that local storage becomes more advantageous as the amount of data loaded by an application increases. Furthermore, we examine the time required for an application to save data to the local storage, comparing the relative save-time performance of our two persistence strategies, and finding one to be more suitable for small updates to the application's data, and the other to be more suitable for larger updates.
 \end{abstract}
 
 \section{Introduction}
@@ -78,12 +70,9 @@ the amount of data being stored. We evaluate optimal conditions for each strateg
 
 \section{The Problem Space}
 
-We hypothesize that the browser's HTML5 localStorage persistent data storage
-can be used by web applications to increase the speed required to load a web
-application's user interface by providing faster access to different types of
-items of required information.
+We hypothesize that Backbone-Store can be used by web applications to increase the speed required to load a web application's user interface by providing faster access to items of varying quantity and size.
 
-Web applications vary in the amount and type of data they must request from a
+Web applications vary in both the quantity and type of data they must request from a
 server before presenting a user interface to a user. Two primary metrics
 closely related to our project are the number of individual items requested,
 and the size of each of these items. Some applications might require only a few
