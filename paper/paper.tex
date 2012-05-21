@@ -249,6 +249,15 @@ larger collections. With very small items in the collection, the additional
 overhead of the one-key-per-model method becomes large enough to outweigh the
 load-time benefits of local storage.
 
+It is of note that users typically perceive lag in an interface when an
+operation takes more than 100 milliseconds to complete. In all of our tests,
+the key-per-model persistence strategy was able to keep the load time for the
+collection below or very near 100 ms, meaning that users would perceive the
+load time as nearly instantaneous. The load time from the server is much
+higher, so users will perceive noticeable lag while waiting for the application
+to load. This demonstrates that our extension provides application users with
+an improved user experience, due to faster application load times.
+
 \begin{figure}[th]
   \centering
   \includegraphics[width=\textwidth]{bars.pdf}
