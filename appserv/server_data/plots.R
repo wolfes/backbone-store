@@ -50,3 +50,18 @@ par(mfrow=c(1,2))
 
 barplot(as.matrix(bar.10), names=c('Per-Collection', 'Per-Model', 'Server'), beside=T, legend.text=c('Note', 'Email', 'Document'), ylab='Load time (ms)', main='A. 10-Item Collections', args.legend=list(x='topleft', inset=0.05))
 barplot(as.matrix(bar.300), names=c('Per-Collection', 'Per-Model', 'Server'), beside=T, legend.text=c('Note', 'Email', 'Document'), ylab='Load time (ms)', main='B. 300-Item Collections', args.legend=list(x='topleft', inset=0.05))
+
+
+
+# Save time data
+each.all <- c(4.1, 13.1, 25.033, 48.9, 72.967)
+each.one <- c(0.7, 0.733, 0.933, 1.067, 1.133)
+one.all <- c(2.067, 7.133, 16.5, 32.3, 44.2)
+one.one <- c(1.633, 6.533, 14.9, 30.6, 42.8)
+
+par(mfrow=c(1,1))
+plot(quantities, each.all, type='b', pch=0, xlab='Quantity', ylab='Save Time (ms)', main='Time to Save Collections to Storage')
+lines(quantities, each.one, type='b', pch=1)
+lines(quantities, one.all, type='b', pch=2)
+lines(quantities, one.one, type='b', pch=3)
+legend('topleft', legend=c('Per Model, All', 'Per Model, One', 'Per Coll., All', 'Per Coll., One'), pch=c(0, 1, 2, 3), inset=0.03)

@@ -210,6 +210,15 @@ responses from the web application and print out batches of times for 15
 requests to a CSV file. This allowed us to rapidly collect timing data for each
 scenario.
 
+Finally, we also tested update times for our two persistence strategies. We did
+this by creating collections with different numbers of items, and measuring the
+time to save each collection to localStorage. Also, to test different save-time
+characteristics of our different persistence strategies, we measured the time
+to resave the collection after adding one model. We predict that the
+one-key-per-model persistence strategy will allow faster updates, by making it
+possible to save only those models that were changed or added since the last
+save.
+
 \section{Results}
 
 Below we present results that measure the load times of data from both local
@@ -277,6 +286,29 @@ loading from the server. Differences in load times due to item size for
 retrieving collections are much less pronounced when loading from local
 storage; again, much of the overhead in loading locally is fixed, and caused
 simply by accessing the local store.
+
+\begin{figure}[th]
+    \centering
+    \includegraphics[width=0.7\textwidth]{save.pdf}
+    \caption{Save time as a function of collection size, for each persistence
+    method.}
+    \label{fig:save}
+\end{figure}
+
+Figure \ref{fig:save} shows the elapsed time for saving a collection of
+document-size items into localStorage, while varying the number of items in the
+collection. For both persistence strategies, the time to save the entire
+collection grows linearly with the size of the collection as expected;
+furthermore, the one-key-per-model strategy takes longer to save an entire
+collection, because of the overhead involved in writing many keys to the
+localStorage.
+
+Also, as expected, the time to resave the collection after adding one model is
+much lower (approx. 1 ms in every case) for the one-key-per-model strategy, as
+we are able to save only that model to the localStorage. For the
+one-key-per-collection strategy, the time to save one more model is
+approximately the same as the time to save all of the models, because this
+strategy must write the entire collection to localStorage in either case.
 
 \section{Conclusion}
 
